@@ -1,11 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+<html lang="es">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AhorrADAs</title>
+    </head>
+
+    <body>
+        <header>
+            <nav>
+                <h1>AhorrADAs</h1>
+                <ul>
+                    <li><a href="#">Balance</a></li>
+                    <li><a href="#">Categorias</a></li>
+                    <li><a href="#">Reportes</a></li>
+                </ul>
+            </nav>
+        </header>
+        <aside>
+            <article>
+                <h2>Balance</h2>
+                <div>
+                    <p>Ganancias</p>
+                    <p>+$0</p>
+                </div>
+                <div>
+                    <p>Gastos</p>
+                    <p>-$0</p>
+                </div>
+                <div>
+                    <h4>Total</h4>
+                    <p>$0</p>
+                </div>
+            </article>
+            <article>
+                <div>
+                    <h2>Filtros</h2>
+                    <button>Ocultar Filtros</button>
+                </div>
+                <div>
+                    <div>
+                        <label for="tipo">Tipo</label>
+                        <select name="tipo" id="tipo">
+                            <option value="Todos">Todos</option>
+                            <option value="Gasto">Gasto</option>
+                            <option value="Ganancia">Ganancia</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="categoria">Categoría</label>
+                        <select name="categoria" id="categoria">
+                            <option value="Todas">Todas</option>
+                            <option value="Comida">Comida</option>
+                            <option value="Servicios">Servicios</option>
+                            <option value="Salidas">Salidas</option>
+                            <option value="Educación">Educación</option>
+                            <option value="Transporte">Transporte</option>
+                            <option value="Trabajo">Trabajo</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="desde">Desde</label>
+                        <input type="date" name="desde" id="desde">
+                    </div>
+                    <div>
+                        <label for="orden">Ordenar por</label>
+                        <select name="orden" id="orden">
+                            <option value="Más reciente">Más reciente</option>
+                            <option value="Menos reciente">Menos reciente</option>
+                            <option value="Mayor monto">Mayor monto</option>
+                            <option value="Menor monto">Menor monto</option>
+                            <option value="A/Z">A/Z</option>
+                            <option value="Z/A">Z/A</option>
+                        </select>
+                    </div>
+                </div>
+            </article>
+        </aside>
+        <main>
+            <section>
+                <div>
+                    <h2>Operaciones</h2>
+                    <button>+ Nueva operación</button>
+                </div>
+                <div>
+                    <h2>Sin resultados</h2>
+                    <p>Cambia los filtros o agrega operaciones</p>
+                </div>
+            </section>
+        </main>
+
+    </body>
+
 </html>
