@@ -14,8 +14,8 @@ module.exports = {
         blue: "#2563eb",
         bgwhite: "#f6f6f6",
       },
-      backgroundImage: {
-        ahorrar: "url('/assets/img-ahorrar.png')",
+      width: {
+        tamtarj: "40rem",
       },
     },
     plugins: [],

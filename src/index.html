@@ -19,7 +19,8 @@
         </ul>
       </nav>
     </header>
-    <aside class="flex flex-col items-center" >
+  <div class="lg:w-full lg:flex lg:justify-center lg:m-1">
+    <aside class="flex flex-col items-center lg:w-80">
       <article class="bg-white block p-6 w-11/12 mt-14 rounded-md drop-shadow-lg">
         <h2 class="text-black font-bold text-4xl mb-10">Balance</h2>
         <div class="flex row place-content-between">
@@ -79,11 +80,11 @@
         </div>
       </article>
     </aside>
-    <main class="flex flex-col items-center">
-      <section class="bg-white block p-6 w-11/12 mt-7 mb-14 rounded-md drop-shadow-lg">
-        <div>
+    <main class="flex flex-col items-stretch lg:mt-7 lg:mx-4">
+      <section class="bg-white block p-6 w-11/12 mt-7 mb-14 rounded-md drop-shadow-lg lg:w-tamtarj">
+        <div class="lg:flex lg:justify-between">
           <h2 class="text-black font-bold text-2xl mb-6">Operaciones</h2>
-          <button class="bg-teal hover:bg-dark-teal text-white py-2 px-4 text-lg rounded-md">+ Nueva operación</button>
+          <button class="bg-teal hover:bg-dark-teal text-white py-2 px-4 text-lg rounded-md lg:px-4 lg:py-0">+ Nueva operación</button>
         </div>
         <div>
           <img src="./assets/img-ahorrar.png" class="m-auto"></img>
@@ -92,6 +93,7 @@
         </div>
       </section>
     </main>
+  </div>
   </body>
 
   <script src="https://kit.fontawesome.com/aa9529ca56.js" crossorigin="anonymous"></script>
