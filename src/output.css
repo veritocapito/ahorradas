@@ -397,6 +397,7 @@ textarea::placeholder {
 Set the default cursor for buttons.
 */
 
+li,
 button,
 [role="button"] {
   cursor: pointer;
