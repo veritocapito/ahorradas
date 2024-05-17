@@ -397,7 +397,6 @@ textarea::placeholder {
 Set the default cursor for buttons.
 */
 
-li,
 button,
 [role="button"] {
   cursor: pointer;
@@ -553,6 +552,10 @@ video {
   --tw-contain-layout:  ;
   --tw-contain-paint:  ;
   --tw-contain-style:  ;
+}
+
+.pointer-events-auto {
+  pointer-events: auto;
 }
 
 .m-auto {
@@ -758,28 +761,13 @@ video {
   background-color: rgb(20 184 166 / var(--tw-bg-opacity));
 }
 
+@media (min-width: 640px) {
+  .sm\:flex-col {
+    flex-direction: column;
+  }
+}
+
 @media (min-width: 768px) {
-  .md\:m-1 {
-    margin: 0.25rem;
-  }
-
-  .md\:m-2 {
-    margin: 0.5rem;
-  }
-
-  .md\:m-4 {
-    margin: 1rem;
-  }
-
-  .md\:mx-4 {
-    margin-left: 1rem;
-    margin-right: 1rem;
-  }
-
-  .md\:mt-7 {
-    margin-top: 1.75rem;
-  }
-
   .md\:flex {
     display: flex;
   }
@@ -788,43 +776,13 @@ video {
     display: none;
   }
 
-  .md\:w-80 {
-    width: 20rem;
-  }
-
-  .md\:w-full {
-    width: 100%;
-  }
-
-  .md\:w-tamtarj {
-    width: 40rem;
-  }
-
-  .md\:justify-center {
-    justify-content: center;
-  }
-
-  .md\:justify-between {
-    justify-content: space-between;
-  }
-
   .md\:p-2 {
     padding: 0.5rem;
-  }
-
-  .md\:px-4 {
-    padding-left: 1rem;
-    padding-right: 1rem;
   }
 
   .md\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
-  }
-
-  .md\:py-0 {
-    padding-top: 0px;
-    padding-bottom: 0px;
   }
 
   .md\:py-5 {
@@ -856,12 +814,12 @@ video {
     display: flex;
   }
 
-  .lg\:w-full {
-    width: 100%;
-  }
-
   .lg\:w-80 {
     width: 20rem;
+  }
+
+  .lg\:w-full {
+    width: 100%;
   }
 
   .lg\:w-tamtarj {
