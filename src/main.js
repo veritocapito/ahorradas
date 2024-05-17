@@ -11,7 +11,8 @@ const vistaReportes = document.getElementById('vista-reportes');
 const vistaNuevaOperacion = document.getElementById('vista-nueva-operacion');
 
 const cambiarVista = (mostrarVista) => {
-    vistaBalance.classList.add('hidden');
+    
+    vistaBalance.classList.add('hidden'&&'lg:hidden');
     vistaCategorias.classList.add('hidden');
     vistaReportes.classList.add('hidden');
     vistaNuevaOperacion.classList.add('hidden');
@@ -19,7 +20,14 @@ const cambiarVista = (mostrarVista) => {
     mostrarVista.classList.remove('hidden');
 }
 
-btnBalance.addEventListener('click', () => cambiarVista(vistaBalance));
+const cambiarVistaBalance = (mostrarVista) => {
+    vistaBalance.classList.add('hidden'&&'lg:hidden');
+    vistaCategorias.classList.add('hidden');
+    vistaNuevaOperacion.classList.add('hidden');
+    mostrarVista.classList.remove('hidden'&&'lg:hidden');
+}
+
+btnBalance.addEventListener('click', () => cambiarVistaBalance(vistaBalance));
 btnCategorias.addEventListener('click', () => cambiarVista(vistaCategorias));
 btnReportes.addEventListener('click', () => cambiarVista(vistaReportes));
 btnNuevaOperacion.addEventListener('click', () => cambiarVista(vistaNuevaOperacion));
