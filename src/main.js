@@ -22,6 +22,7 @@ const cambiarVista = (mostrarVista) => {
 const cambiarVistaBalance = (mostrarVista) => {
     vistaBalance.classList.add('hidden'&&'lg:hidden');
     vistaCategorias.classList.add('hidden');
+    vistaReportes.classList.add('hidden');
     vistaNuevaOperacion.classList.add('hidden');
     mostrarVista.classList.remove('hidden'&&'lg:hidden');
 }
@@ -30,7 +31,7 @@ btnBalance.addEventListener('click', () => cambiarVistaBalance(vistaBalance));
 btnCategorias.addEventListener('click', () => cambiarVista(vistaCategorias));
 btnReportes.addEventListener('click', () => cambiarVista(vistaReportes));
 btnNuevaOperacion.addEventListener('click', () => cambiarVista(vistaNuevaOperacion));
-btnCancelarOperacion.addEventListener('click', () => cambiarVista(vistaBalance));
+btnCancelarOperacion.addEventListener('click', () => cambiarVistaBalance(vistaBalance));
 
 
 const btnFiltros = document.getElementById('btn-filtros');
