@@ -11,8 +11,7 @@ const vistaReportes = document.getElementById('vista-reportes');
 const vistaNuevaOperacion = document.getElementById('vista-nueva-operacion');
 
 const cambiarVista = (mostrarVista) => {
-    
-    vistaBalance.classList.add('hidden'&&'lg:hidden');
+    vistaBalance.classList.add('hidden'&&'lg:hidden');    
     vistaCategorias.classList.add('hidden');
     vistaReportes.classList.add('hidden');
     vistaNuevaOperacion.classList.add('hidden');
