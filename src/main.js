@@ -45,3 +45,21 @@ const ocultarFiltros = () => {
 }
 
 btnFiltros.addEventListener('click', ocultarFiltros);
+
+const btnMenu = document.getElementById('btn-menu');
+const menu = document.getElementById('menu');
+
+btnMenu.addEventListener('click', () => {
+    const icon = btnMenu.querySelector('i');
+    if (menu.classList.contains('top-[80px]')) {
+        icon.classList.remove('fa-close');
+        icon.classList.add('fa-bars');
+        menu.classList.remove('top-[80px]', 'opacity-100');
+        menu.classList.add('top-[-400px]', 'opacity-0');
+    } else {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-close');
+        menu.classList.remove('top-[-400px]', 'opacity-0');
+        menu.classList.add('top-[80px]', 'opacity-100');
+    }
+});
