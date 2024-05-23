@@ -13,13 +13,13 @@
         <header>
             <nav class="bg-teal text-white md:flex py-5 px-5 md:items-center md:justify-between">
                 <div class="flex justify-between items-center">
-                    <h1 class="text-4xl  font-medium"><i
-                            class="fa-solid fa-wallet pr-4"></i>AhorrADAs
+                    <h1 class="text-4xl  font-medium"><i class="fa-solid fa-wallet pr-4"></i>AhorrADAs
                     </h1>
-                    <span class=" text-3xl cursor-pointer md:hidden block" id="btn-menu"><i class="fa-solid fa-bars" ></i></span>
+                    <span class=" text-3xl cursor-pointer md:hidden block" id="btn-menu"><i
+                            class="fa-solid fa-bars"></i></span>
                 </div>
                 <ul id="menu"
-                    class="md:flex md:items-center z-[1] md:z-auto md:static absolute bg-teal w-full left-0 md:w-auto md:py-0 py-4 md:pl-0 pl-4 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in-out" >
+                    class="md:flex md:items-center z-[1] md:z-auto md:static absolute bg-teal w-full left-0 md:w-auto md:py-0 py-4 md:pl-0 pl-4 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in-out">
 
                     <li class="hover:bg-dark-teal text-center mx-auto p-2 rounded-lg text-lg font-medium md:flex items-center duration-500"
                         id="btn-balance">
@@ -36,8 +36,9 @@
                 </ul>
             </nav>
         </header>
-        <div class="lg:w-full lg:flex lg:justify-center" id="vista-balance">
-            <aside class="hidden md:flex flex-col items-center lg:w-80">
+        <!-- VISTA BALANCE -->
+        <div class="md:w-full lg:flex lg:justify-center" id="vista-balance">
+            <aside class="md:flex flex-col items-center lg:w-80">
                 <article class="bg-white block p-6 w-11/12 mt-14 rounded-md drop-shadow-lg">
                     <h2 class="text-black font-bold text-4xl mb-10">Balance</h2>
                     <div class="flex row place-content-between">
@@ -53,7 +54,7 @@
                         <p class="text-black font-bold text-xl py-2">$0</p>
                     </div>
                 </article>
-                <article class="hidden bg-white md:block p-6 w-11/12 mt-7 rounded-md drop-shadow-lg">
+                <article class=" bg-white md:block p-6 w-11/12 mt-7 rounded-md drop-shadow-lg">
                     <div class="flex place-content-between items-center mb-6">
                         <h2 class="text-black font-bold text-2xl">Filtros</h2>
                         <button class="text-blue" id="btn-filtros">Ocultar Filtros</button>
@@ -71,7 +72,7 @@
                             <label for="categorias-select" class="text-black text-lg font-bold mb-2">Categoría</label>
                             <select name="categoria" id="categorias-select" class="border-gray-200 border p-2 mb-3">
                                 <option value="Todas">Todas</option>
-<!--                            <option value="Comida">Comida</option>
+                                <!-- <option value="Comida">Comida</option>
                                 <option value="Servicios">Servicios</option>
                                 <option value="Salidas">Salidas</option>
                                 <option value="Educación">Educación</option>
@@ -97,7 +98,7 @@
                     </div>
                 </article>
             </aside>
-            <main class="flex flex-col items-center lg:mt-7 lg:mx-4">
+            <main class="md:w-full flex flex-col items-center lg:mt-7 lg:mx-4">
                 <section class="bg-white block p-6 w-11/12 mt-7 mb-14 rounded-md drop-shadow-lg lg:w-tamtarj">
                     <div class="lg:flex lg:justify-between">
                         <h2 class="text-black font-bold text-2xl mb-6">Operaciones</h2>
@@ -106,7 +107,16 @@
                             id="btn-nueva-operacion">+
                             Nueva operación</button>
                     </div>
-                    <div>
+                    <div class="flex-col hidden" id="con-operaciones">
+                        <div class="flex gap-2">
+                            <div class="">Descripción</div>
+                            <div class="">Categoría</div>
+                            <div class="">Fecha</div>
+                            <div class="">Monto</div>
+                            <div class="">Acciones</div>
+                        </div>
+                    </div>
+                    <div id="sin-operaciones">
                         <img src="./assets/img-ahorrar.png" class="m-auto"></img>
                         <h2 class="text-black font-medium text-center text-2xl mb-6">Sin resultados</h2>
                         <p class="text-black text-center text-lg mb-12">Cambia los filtros o agrega operaciones</p>
@@ -114,7 +124,11 @@
                 </section>
 
             </main>
+
+
         </div>
+
+        <!-- VISTA NUEVA OPERACION -->
         <section
             class="lg:w-1/2 justify-center m-auto bg-white p-6 w-11/12 mt-14 mb-14 rounded-md drop-shadow-lg hidden"
             id="vista-nueva-operacion">
@@ -154,7 +168,8 @@
                 </div>
                 <div class="flex flex-col">
                     <label for="fecha-nueva-operacion" class="text-black text-lg font-bold mb-2">Fecha</label>
-                    <input type="date" name="fecha-nueva-operacion" id="fecha-nueva-operacion" class="border-gray-200 border p-2 mb-3" />
+                    <input type="date" name="fecha-nueva-operacion" id="fecha-nueva-operacion"
+                        class="border-gray-200 border p-2 mb-3" />
                 </div>
                 <div class="flex justify-end mt-6 gap-2">
                     <button class="bg-bgwhite hover:bg-bgwhite text-black py-2 px-4 text-lg rounded-md lg:px-4 lg:py-2"
@@ -168,8 +183,9 @@
                 </div>
             </div>
         </section>
+        <!-- VISTA CATEGORIAS -->
         <section
-            class="lg:w-1/2 justify-center m-auto bg-white p-6 w-11/12 mt-14 mb-14 rounded-md drop-shadow-lg hidden"
+            class="flex-col lg:w-1/2 justify-center m-auto bg-white p-6 w-11/12 mt-14 mb-14 rounded-md drop-shadow-lg hidden"
             id="vista-categorias">
             <h2 class="text-black font-bold text-4xl mb-10">Categorías</h2>
             <div class="flex-col w-full">
@@ -188,8 +204,10 @@
                 <!-- aca se van a mostrar las categorias con JS, con los botones editar y eliminar -->
             </div>
         </section>
+
+        <!-- VISTA REPORTES -->
         <section
-            class="lg:w-1/2 h- justify-center m-auto bg-white p-6 w-11/12 mt-14 mb-14 rounded-md drop-shadow-lg hidden"
+            class="flex-col lg:w-1/2 h- justify-center m-auto bg-white p-6 w-11/12 mt-14 mb-14 rounded-md drop-shadow-lg hidden"
             id="vista-reportes">
             <h2 class="text-black font-bold text-4xl mb-10">Reportes</h2>
             <!-- mensaje cuando no hay operaciones -->
