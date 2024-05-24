@@ -1,46 +1,37 @@
-//cargar categorias
+// Cargar categorias
 const categoriasSelect = document.querySelector('#categorias-select');
+const listaCategorias = document.querySelector('#lista-categorias');
 
 function cargarCategorias(categorias) {
+    categoriasSelect.innerHTML = ''; // Limpiar las categorías anteriores
     categorias.forEach(categoria => {
         let nuevaCategoria = document.createElement('option');
-        nuevaCategoria.value = categoria
-        nuevaCategoria.textContent = categoria
-        categoriasSelect.appendChild(nuevaCategoria)
+        nuevaCategoria.value = categoria;
+        nuevaCategoria.textContent = categoria;
+        categoriasSelect.appendChild(nuevaCategoria);
     });
+    mostrarCategorias();
 }
 
-//cargar storage
-
+// Cargar storage
 function cargarStorage() {
-    const categorias = localStorage.getItem('categorias')
-    const operaciones = localStorage.getItem('operaciones')
+    const categorias = localStorage.getItem('categorias');
+    const operaciones = localStorage.getItem('operaciones');
 
     if (!categorias) {
-        const categoriasDefault = ["Comida", "Servicios", "Salidas", "Educación", "Transporte", "Trabajo"]
-        localStorage.setItem('categorias', categoriasDefault)
-        cargarCategorias(categoriasDefault)
+        const categoriasDefault = ["Comida", "Servicios", "Salidas", "Educación", "Transporte", "Trabajo"];
+        localStorage.setItem('categorias', JSON.stringify(categoriasDefault));
+        cargarCategorias(categoriasDefault);
     } else {
-        let nuevaCategoria = ''
-        let nuevasCategoriasArray = []
-
-        for (let i = 0; i < categorias.length; i++) {
-            if (categorias[i] !== ",") {
-                nuevaCategoria += categorias[i]
-                if (i === categorias.length - 1) {
-                    nuevasCategoriasArray.push(nuevaCategoria)
-                }
-            } else {
-                nuevasCategoriasArray.push(nuevaCategoria)
-                nuevaCategoria = ''
-            }
-        }
-        cargarCategorias(nuevasCategoriasArray)
+        let nuevasCategoriasArray = JSON.parse(categorias);
+        cargarCategorias(nuevasCategoriasArray);
     }
+
     mostrarOperaciones();
 }
 
-cargarStorage()
+cargarStorage();
+
 
 //Cambiar Vistas
 const btnBalance = document.getElementById('btn-balance');
@@ -175,8 +166,8 @@ function mostrarOperaciones() {
                 </div>
                 <div class="">
                     <p class="is-fullwidth">
-                        <a href="#" class="mr-3 is-size-7 edit-link">Editar</a>
-                        <a href="#" class="is-size-7 delete-link">Eliminar</a>
+                        <a href="#" class="bg-blue-500 text-white py-1 px-2 mr-2 rounded">Editar</a>
+                        <a href="#" class="bg-red-500 text-white py-1 px-2 rounded">Eliminar</a>
                     </p>
                 </div>
             </div>`;
@@ -186,3 +177,75 @@ function mostrarOperaciones() {
         sinOperaciones.style.display = 'block';
     }
 }
+
+// Mostrar Categorías
+function mostrarCategorias() {
+    const categorias = localStorage.getItem('categorias');
+    const categoriasParseadas = categorias ? JSON.parse(categorias) : [];
+    const listaCategorias = document.querySelector('#lista-categorias');
+    
+    listaCategorias.innerHTML = ''; // Limpiar las categorías anteriores
+
+    categoriasParseadas.forEach(categoria => {
+        const categoriaElemento = document.createElement('li');
+        categoriaElemento.classList.add('flex', 'justify-between', 'items-center', 'border', 'p-2', 'mb-2');
+        
+        const nombreCategoria = document.createElement('span');
+        nombreCategoria.textContent = categoria;
+        
+        const contenedorBotones = document.createElement('div');
+        
+        const botonEditar = document.createElement('button');
+        botonEditar.textContent = 'Editar';
+        botonEditar.classList.add('bg-blue-500', 'text-white', 'py-1', 'px-2', 'mr-2', 'rounded');
+        botonEditar.addEventListener('click', () => editarCategoria(categoria));
+        
+        const botonEliminar = document.createElement('button');
+        botonEliminar.textContent = 'Eliminar';
+        botonEliminar.classList.add('bg-red-500', 'text-white', 'py-1', 'px-2', 'rounded');
+        botonEliminar.addEventListener('click', () => eliminarCategoria(categoria));
+        
+        contenedorBotones.appendChild(botonEditar);
+        contenedorBotones.appendChild(botonEliminar);
+        
+        categoriaElemento.appendChild(nombreCategoria);
+        categoriaElemento.appendChild(contenedorBotones);
+        
+        listaCategorias.appendChild(categoriaElemento);
+    });
+}
+
+function editarCategoria(categoria) {
+    const nuevoNombre = prompt('Editar nombre de la categoría:', categoria);
+    if (nuevoNombre) {
+        let categorias = JSON.parse(localStorage.getItem('categorias'));
+        const index = categorias.indexOf(categoria);
+        if (index !== -1) {
+            categorias[index] = nuevoNombre;
+            localStorage.setItem('categorias', JSON.stringify(categorias));
+            cargarCategorias(categorias);
+        }
+    }
+}
+
+function eliminarCategoria(categoria) {
+    if (confirm(`¿Está seguro de que desea eliminar la categoría "${categoria}"?`)) {
+        let categorias = JSON.parse(localStorage.getItem('categorias'));
+        categorias = categorias.filter(cat => cat !== categoria);
+        localStorage.setItem('categorias', JSON.stringify(categorias));
+        cargarCategorias(categorias);
+    }
+}
+
+const agregarCategoriaBtn = document.getElementById('agregar-categoria-btn');
+agregarCategoriaBtn.addEventListener('click', () => {
+    const nombreCategoriaInput = document.getElementById('nombre-categoria-input');
+    const nuevaCategoria = nombreCategoriaInput.value.trim();
+    if (nuevaCategoria) {
+        let categorias = JSON.parse(localStorage.getItem('categorias'));
+        categorias.push(nuevaCategoria);
+        localStorage.setItem('categorias', JSON.stringify(categorias));
+        nombreCategoriaInput.value = '';
+        cargarCategorias(categorias);
+    }
+});
