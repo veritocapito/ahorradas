@@ -15,7 +15,7 @@
                 <h1 class="text-4xl md:text-4xl rounded-lg font-medium md:p-2"><i class="fa-solid fa-wallet pr-4"></i>AhorrADAs
                 </h1>
                 <ul class="flex items-center pointer-events-auto">
-                    <li class="md:hidden"><i class="fa-solid fa-bars"></i></li>
+                    <li class="md:hidden" id="burger-menu"><i class="fa-solid fa-bars"></i></li>
                     <li class="hidden hover:bg-dark-teal text-center mx-auto p-2 rounded-lg text-lg font-medium md:flex items-center"
                         id="btn-balance">
                         <i class="fa-solid fa-arrow-trend-up pr-2"></i>Balance</a>
@@ -152,7 +152,7 @@
                             Cancelar
                         </button>
                         <button
-                            class="bg-green hover:bg-dark-green text-white py-2 px-4 text-lg rounded-md lg:px-4 lg:py-0"
+                            class="bg-green hover:bg-darker-green text-white py-2 px-4 text-lg rounded-md lg:px-4 lg:py-0"
                             id="btn-agregar-operacion">
                             Agregar
                         </button>
@@ -166,10 +166,10 @@
                     <div class="">
                         <label for="nombre-categoria-input" class="text-black text-lg font-bold mb-2">Nombre</label>
                     </div>
-                    <div class="flex">
+                    <div class="flex h-16">
                         <input type="text" name="nombre-categoria-input" class="border-gray-200 border py-3 my-3 mr-3 rounded-lg w-full" id="nombre-categoria-input">
                         <button
-                            class="bg-green hover:bg-darker-green text-white py-0 px-4 text-lg rounded-md lg:px-4 lg:py-0"
+                            class="bg-green hover:bg-darker-green text-white text-lg py-0 px-4 text-md rounded-md"
                             id="agregar-categoria-btn">Agregar</button>
                     </div>
                 </div>

@@ -19,13 +19,13 @@ const cambiarVista = (mostrarVista) => {
     mostrarVista.classList.remove('hidden');
 }
 
-const cambiarVistaBalance = (mostrarVista) => {
+/* const cambiarVistaBalance = (mostrarVista) => {
     vistaBalance.classList.add('hidden'&&'lg:hidden');
     vistaCategorias.classList.add('hidden');
     vistaReportes.classList.add('hidden');
     vistaNuevaOperacion.classList.add('hidden');
     mostrarVista.classList.remove('hidden'&&'lg:hidden');
-}
+} */
 
 btnBalance.addEventListener('click', () => cambiarVistaBalance(vistaBalance));
 btnCategorias.addEventListener('click', () => cambiarVista(vistaCategorias));
@@ -45,3 +45,6 @@ const ocultarFiltros = () => {
 }
 
 btnFiltros.addEventListener('click', ocultarFiltros);
+
+
+const burgerMenu = document.getElementById('burger-menu');
