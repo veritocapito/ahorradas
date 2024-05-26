@@ -160,7 +160,7 @@ function mostrarOperaciones() {
         operacionesParseadas.forEach(operacion => {
             const nuevoElemento = document.createElement('div');
             nuevoElemento.innerHTML = `
-            <div class="flex gap-2">
+            <div class="flex w-2/3">
                 <div class="">
                     <h3 class="">${operacion.descripcion}</h3>
                 </div>
@@ -186,3 +186,4 @@ function mostrarOperaciones() {
         sinOperaciones.style.display = 'block';
     }
 }
+
