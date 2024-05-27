@@ -152,7 +152,7 @@ function mostrarOperaciones() {
             const nuevoElemento = document.createElement('div');
             nuevoElemento.innerHTML = `
             <div class="flex gap-2">
-                <div class="">
+                <div class="text-bold">
                     <h3 class="">${operacion.descripcion}</h3>
                 </div>
                 <div class="">
