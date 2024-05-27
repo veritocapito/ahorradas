@@ -110,10 +110,10 @@
                     <div class="flex-col hidden" id="con-operaciones">
                         <div class="flex justify-between mt-10">
                             <div class="font-bold w-1/4">Descripción</div>
-                            <div class="font-bold">Categoría</div>
-                            <div class="font-bold">Fecha</div>
-                            <div class="font-bold">Monto</div>
-                            <div class="font-bold">Acciones</div>
+                            <div class="font-bold m-auto">Categoría</div>
+                            <div class="font-bold m-auto">Fecha</div>
+                            <div class="font-bold m-auto">Monto</div>
+                            <div class="font-bold m-auto">Acciones</div>
                         </div>
                     </div>
                     <div id="sin-operaciones">
@@ -211,8 +211,37 @@
             class="flex-col lg:w-1/2 h- justify-center m-auto bg-white p-6 w-11/12 mt-14 mb-14 rounded-md drop-shadow-lg hidden"
             id="vista-reportes">
             <h2 class="text-black font-bold text-4xl mb-10">Reportes</h2>
+            <!-- cuando hay reportes -->
+            <div class="flex-col " id="con-reportes">
+                <h3 class="text-2xl font-medium mt-4">Resumen</h3>
+                <div class="mt-10 text-gray-600">
+                    <div class="font-medium">Categoría con mayor ganancia</div>
+                    <div class="font-medium mt-8">Categoría con mayor gasto</div>
+                    <div class="font-medium mt-8">Categoría con mayor balance</div>
+                    <div class="font-medium mt-8">Mes con mayor ganancia</div>
+                    <div class="font-medium mt-8">Mes con mayor gasto</div>
+                </div>
+                <h3 class="text-2xl font-medium mt-14">Totales por categorías</h3>
+                <div class="">
+                    <div class="flex justify-between mt-10">
+                        <div class="font-bold w-1/4">Categoría</div>
+                        <div class="font-bold m-auto">Ganancias</div>
+                        <div class="font-bold m-auto">Gastos</div>
+                        <div class="font-bold m-auto">Balance</div>
+                    </div>
+                </div>
+                <h3 class="text-2xl font-medium mt-14">Totales por mes</h3>
+                <div class="">
+                    <div class="flex justify-between mt-10">
+                        <div class="font-bold w-1/4">Mes</div>
+                        <div class="font-bold m-auto">Ganancias</div>
+                        <div class="font-bold m-auto">Gastos</div>
+                        <div class="font-bold m-auto">Balance</div>
+                    </div>
+                </div>
+            </div>
             <!-- mensaje cuando no hay operaciones -->
-            <div class="flex flex-col items-center max-h-full">
+            <div class="flex flex-col items-center max-h-full hidden">
                 <img src="assets/img-ahorrar.png" alt="">
                 <h2 class="text-black font-medium text-center text-2xl mb-6">Operaciones insuficientes</h2>
                 <p class="text-black text-center text-lg mb-12">Prueba agregando más operaciones</p>

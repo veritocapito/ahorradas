@@ -152,22 +152,22 @@ function mostrarOperaciones() {
             const nuevoElemento = document.createElement('div');
             nuevoElemento.innerHTML = `
             <div class="flex justify-between mt-6">
-                <div class="w-1/4">
+                <div class="w-1/4 text-gray-600">
                     <h3 class="">${operacion.descripcion}</h3>
                 </div>
-                <div class="bg-teal-100 rounded text-sm text-teal-800 py-1 px-2">
-                    <span class="tag">${operacion.tipo}</span>
+                <div class="bg-teal-100 rounded text-sm text-teal-800 py-1 px-2 m-auto">
+                    <span class="tag">${operacion.categoria}</span>
                 </div>
-                <div class="text-gray-600">
+                <div class="text-gray-600 m-auto">
                     ${operacion.fecha}
                 </div>
-                <div class="text-gray-600 font-bold">
+                <div class="text-gray-600 font-bold m-auto">
                     ${operacion.monto}
                 </div>
-                <div class="gap-1">
+                <div class="m-auto">
                     <p class="is-fullwidth">
-                        <a href="#" class="text-blue py-1 mr-1 rounded text-sm">Editar</a>
-                        <a href="#" class="text-blue py-1 rounded text-sm">Eliminar</a>
+                        <a href="#" class="text-blue rounded mx-0 text-sm">Editar</a>
+                        <a href="#" class="text-blue rounded mx-0 text-sm">Eliminar</a>
                     </p>
                 </div>
             </div>`;
