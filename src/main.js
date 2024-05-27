@@ -151,23 +151,23 @@ function mostrarOperaciones() {
         operacionesParseadas.forEach(operacion => {
             const nuevoElemento = document.createElement('div');
             nuevoElemento.innerHTML = `
-            <div class="flex gap-2">
-                <div class="text-bold">
+            <div class="flex justify-between mt-6">
+                <div class="w-1/4">
                     <h3 class="">${operacion.descripcion}</h3>
                 </div>
-                <div class="">
+                <div class="bg-teal-100 rounded text-sm text-teal-800 py-1 px-2">
                     <span class="tag">${operacion.tipo}</span>
                 </div>
-                <div class="">
+                <div class="text-gray-600">
                     ${operacion.fecha}
                 </div>
-                <div class="">
+                <div class="text-gray-600 font-bold">
                     ${operacion.monto}
                 </div>
-                <div class="">
+                <div class="gap-1">
                     <p class="is-fullwidth">
-                        <a href="#" class="bg-blue-500 text-white py-1 px-2 mr-2 rounded">Editar</a>
-                        <a href="#" class="bg-red-500 text-white py-1 px-2 rounded">Eliminar</a>
+                        <a href="#" class="text-blue py-1 mr-1 rounded text-sm">Editar</a>
+                        <a href="#" class="text-blue py-1 rounded text-sm">Eliminar</a>
                     </p>
                 </div>
             </div>`;
@@ -188,21 +188,22 @@ function mostrarCategorias() {
 
     categoriasParseadas.forEach(categoria => {
         const categoriaElemento = document.createElement('li');
-        categoriaElemento.classList.add('flex', 'justify-between', 'items-center', 'border', 'p-2', 'mb-2');
+        categoriaElemento.classList.add('flex', 'justify-between', 'items-center', 'p-2', 'mb-2');
         
         const nombreCategoria = document.createElement('span');
         nombreCategoria.textContent = categoria;
+        nombreCategoria.classList.add('bg-teal-100', 'rounded', 'text-sm', 'text-teal-800', 'py-1', 'px-2');
         
         const contenedorBotones = document.createElement('div');
         
         const botonEditar = document.createElement('button');
         botonEditar.textContent = 'Editar';
-        botonEditar.classList.add('bg-blue-500', 'text-white', 'py-1', 'px-2', 'mr-2', 'rounded');
+        botonEditar.classList.add('text-blue', 'py-1', 'px-2', 'mr-2', 'rounded', 'text-sm');
         botonEditar.addEventListener('click', () => editarCategoria(categoria));
         
         const botonEliminar = document.createElement('button');
         botonEliminar.textContent = 'Eliminar';
-        botonEliminar.classList.add('bg-red-500', 'text-white', 'py-1', 'px-2', 'rounded');
+        botonEliminar.classList.add('text-blue', 'py-1', 'px-2', 'rounded', 'text-sm');
         botonEliminar.addEventListener('click', () => eliminarCategoria(categoria));
         
         contenedorBotones.appendChild(botonEditar);
