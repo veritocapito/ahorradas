@@ -41,17 +41,17 @@
             <aside class="md:flex flex-col m-auto items-center lg:w-1/4">
                 <article class="bg-white block p-6 w-11/12 lg:w-full m-auto rounded-md drop-shadow-lg">
                     <h2 class="text-black font-bold text-4xl mb-10">Balance</h2>
-                    <div class="flex row place-content-between">
-                        <p class="text-black text-xl py-2">Ganancias</p>
-                        <p class="text-green text-xl py-2">+$0</p>
+                    <div class="flex row place-content-between" id="balance-ganancias">
+<!--                         <p class="text-black text-xl py-2">Ganancias</p> -->
+                        <!-- <p class="text-green text-xl py-2">+$0</p> -->
                     </div>
-                    <div class="flex row place-content-between">
-                        <p class="text-black text-xl py-2">Gastos</p>
-                        <p class="text-red text-xl py-2">-$0</p>
+                    <div class="flex row place-content-between" id="balance-gastos">
+<!--                         <p class="text-black text-xl py-2">Gastos</p>
+                        <p class="text-red text-xl py-2">-$0</p> -->
                     </div>
-                    <div class="flex row place-content-between">
-                        <h4 class="text-black text-2xl py-2">Total</h4>
-                        <p class="text-black font-bold text-xl py-2">$0</p>
+                    <div class="flex row place-content-between" id="balance-total">
+<!--                         <h4 class="text-black text-2xl py-2">Total</h4>
+                        <p class="text-black font-bold text-xl py-2">$0</p> -->
                     </div>
                 </article>
                 <article class=" bg-white md:block p-6 w-11/12 mt-7 lg:w-full m-auto rounded-md drop-shadow-lg">
@@ -241,7 +241,7 @@
                 </div>
             </div>
             <!-- mensaje cuando no hay operaciones -->
-            <div class="flex flex-col items-center max-h-full hidden">
+            <div class="flex-col items-center max-h-full hidden">
                 <img src="assets/img-ahorrar.png" alt="">
                 <h2 class="text-black font-medium text-center text-2xl mb-6">Operaciones insuficientes</h2>
                 <p class="text-black text-center text-lg mb-12">Prueba agregando más operaciones</p>

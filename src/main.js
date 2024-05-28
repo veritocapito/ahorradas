@@ -13,10 +13,115 @@ function cargarCategorias(categorias) {
     mostrarCategorias();
 }
 
+const operaciones = localStorage.getItem('operaciones');
+const operacionesParseadas = operaciones ? JSON.parse(operaciones) : [];
+
+function mostrarOperaciones() {
+
+    const conOperaciones = document.querySelector('#con-operaciones');
+    const sinOperaciones = document.querySelector('#sin-operaciones');
+
+    mostrarOperaciones.innerHTML = ''; // Limpiar las operaciones anteriores
+
+    if (operacionesParseadas.length > 0) {
+        sinOperaciones.style.display = 'none';
+        conOperaciones.style.display = 'flex';
+        operacionesParseadas.forEach(operacion => {
+            const nuevoElemento = document.createElement('div');
+            nuevoElemento.innerHTML = `
+            <div class="flex justify-between mt-6">
+                <div class="w-1/4 text-gray-600">
+                    <h3 class="">${operacion.descripcion}</h3>
+                </div>
+                <div class="bg-teal-100 rounded text-sm text-teal-800 py-1 px-2 m-auto">
+                    <span class="tag">${operacion.categoria}</span>
+                </div>
+                <div class="text-gray-600 m-auto">
+                    ${operacion.fecha}
+                </div>
+                <div class="text-gray-600 font-bold m-auto">
+                    ${operacion.monto}
+                </div>
+                <div class="m-auto">
+                    <p class="is-fullwidth">
+                        <a href="#" class="text-blue rounded mx-0 text-sm">Editar</a>
+                        <a href="#" class="text-blue rounded mx-0 text-sm">Eliminar</a>
+                    </p>
+                </div>
+            </div>`;
+            conOperaciones.appendChild(nuevoElemento);
+        });
+    } else {
+        sinOperaciones.style.display = 'block';
+    }
+}
+
+// Obtener las referencias de los elementos del balance
+const balanceGanancias = document.getElementById('balance-ganancias');
+const balanceGastos = document.getElementById('balance-gastos');
+const balanceTotal = document.getElementById('balance-total');
+
+
+// Función para calcular ganancias
+const calcularGanancias = () => {
+    const operaciones = localStorage.getItem('operaciones');
+    const operacionesParseadas = operaciones ? JSON.parse(operaciones) : [];
+
+    let ganancias = 0;
+    operacionesParseadas.forEach(operacion => {
+        if (operacion.tipo === 'Ganancia') {
+            ganancias += parseFloat(operacion.monto);
+        }
+    });
+
+    balanceGanancias.innerHTML = `
+        <p class="text-black text-xl py-2">Ganancias</p>
+        <p class="text-green text-xl py-2">+$${ganancias.toFixed(2)}</p>
+    `;
+};
+
+// Función para calcular gastos
+const calcularGastos = () => {
+    const operaciones = localStorage.getItem('operaciones');
+    const operacionesParseadas = operaciones ? JSON.parse(operaciones) : [];
+
+    let gastos = 0;
+    operacionesParseadas.forEach(operacion => {
+        if (operacion.tipo === 'Gasto') {
+            gastos += parseFloat(operacion.monto);
+        }
+    });
+
+    balanceGastos.innerHTML = `
+        <p class="text-black text-xl py-2">Gastos</p>
+        <p class="text-red text-xl py-2">-$${gastos.toFixed(2)}</p>
+    `;
+};
+
+// Función para calcular el balance total
+const calcularTotal = () => {
+    const operaciones = localStorage.getItem('operaciones');
+    const operacionesParseadas = operaciones ? JSON.parse(operaciones) : [];
+
+    let total = 0;
+    operacionesParseadas.forEach(operacion => {
+        if (operacion.tipo === 'Ganancia') {
+            total += parseFloat(operacion.monto);
+        } else if (operacion.tipo === 'Gasto') {
+            total -= parseFloat(operacion.monto);
+        }
+    });
+
+    balanceTotal.innerHTML = `
+        <h4 class="text-black text-2xl py-2">Total</h4>
+        <p class="text-black font-bold text-xl py-2">$${total.toFixed(2)}</p>
+    `;
+};
+
+
 // Cargar storage
 function cargarStorage() {
     const categorias = localStorage.getItem('categorias');
-    const operaciones = localStorage.getItem('operaciones');
 
     if (!categorias) {
         const categoriasDefault = ["Comida", "Servicios", "Salidas", "Educación", "Transporte", "Trabajo"];
@@ -28,6 +133,9 @@ function cargarStorage() {
     }
 
     mostrarOperaciones();
+    calcularGanancias();
+    calcularGastos();
+    calcularTotal();
 }
 
 cargarStorage();
@@ -111,7 +219,7 @@ const fechaNuevaOperacion = document.getElementById('fecha-nueva-operacion');
 function crearOperacion() {
     let nuevaOperacion = {
         descripcion: descripcionNuevaOperacion.value,
-        monto: montoNuevaOperacion.value,
+        monto: parseFloat(montoNuevaOperacion.value),
         tipo: tipoNuevaOperacion.value,
         categoria: categoriaNuevaOperacion.value,
         fecha: fechaNuevaOperacion.value
@@ -127,6 +235,9 @@ function crearOperacion() {
         localStorage.setItem("operaciones", JSON.stringify(parsedStorage));
     }
     mostrarOperaciones();
+    calcularGanancias();
+    calcularGastos();
+    calcularTotal();
     vistaNuevaOperacion.style.display = 'none';
     vistaBalance.style.display = 'flex';
 }
@@ -137,46 +248,6 @@ btnAgregarOperacion.addEventListener('click', function (event) {
     crearOperacion();
 });
 
-function mostrarOperaciones() {
-    const operaciones = localStorage.getItem('operaciones');
-    const operacionesParseadas = operaciones ? JSON.parse(operaciones) : [];
-    const conOperaciones = document.querySelector('#con-operaciones');
-    const sinOperaciones = document.querySelector('#sin-operaciones');
-
-    mostrarOperaciones.innerHTML = ''; // Limpiar las operaciones anteriores
-
-    if (operacionesParseadas.length > 0) {
-        sinOperaciones.style.display = 'none';
-        conOperaciones.style.display = 'flex';
-        operacionesParseadas.forEach(operacion => {
-            const nuevoElemento = document.createElement('div');
-            nuevoElemento.innerHTML = `
-            <div class="flex justify-between mt-6">
-                <div class="w-1/4 text-gray-600">
-                    <h3 class="">${operacion.descripcion}</h3>
-                </div>
-                <div class="bg-teal-100 rounded text-sm text-teal-800 py-1 px-2 m-auto">
-                    <span class="tag">${operacion.categoria}</span>
-                </div>
-                <div class="text-gray-600 m-auto">
-                    ${operacion.fecha}
-                </div>
-                <div class="text-gray-600 font-bold m-auto">
-                    ${operacion.monto}
-                </div>
-                <div class="m-auto">
-                    <p class="is-fullwidth">
-                        <a href="#" class="text-blue rounded mx-0 text-sm">Editar</a>
-                        <a href="#" class="text-blue rounded mx-0 text-sm">Eliminar</a>
-                    </p>
-                </div>
-            </div>`;
-            conOperaciones.appendChild(nuevoElemento);
-        });
-    } else {
-        sinOperaciones.style.display = 'block';
-    }
-}
 
 // Mostrar Categorías
 function mostrarCategorias() {
