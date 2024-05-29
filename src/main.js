@@ -249,6 +249,125 @@ btnAgregarOperacion.addEventListener('click', function (event) {
 });
 
 
+// Mostrar Operaciones
+function mostrarOperaciones() {
+    const operaciones = localStorage.getItem('operaciones');
+    const operacionesParseadas = operaciones ? JSON.parse(operaciones) : [];
+    const conOperaciones = document.querySelector('#con-operaciones');
+    const sinOperaciones = document.querySelector('#sin-operaciones');
+
+    conOperaciones.innerHTML = ''; // Limpiar las operaciones anteriores
+
+    if (operacionesParseadas.length > 0) {
+        sinOperaciones.style.display = 'none';
+        conOperaciones.style.display = 'flex';
+        operacionesParseadas.forEach((operacion, index) => {
+            //botonEliminar.classList.add('bg-red-500', 'text-white', 'py-1', 'px-2', 'rounded');
+            //botonEditar.classList.add('bg-blue-500', 'text-white', 'py-1', 'px-2', 'mr-2', 'rounded');
+
+            const nuevaOperacion = document.createElement('div');
+            nuevaOperacion.innerHTML = `
+            <div class="flex justify-between items-center p-2 mt-10">
+                <div class="w-1/4 text-gray-600">
+                    <h3 class="">${operacion.descripcion}</h3>
+                </div>
+                <div class="bg-teal-100 rounded text-sm text-teal-800 py-1 px-2 m-auto">
+                    <span class="tag">${operacion.categoria}</span>
+                </div>
+                <div class="text-gray-600 m-auto">
+                    ${operacion.fecha}
+                </div>
+                <div class="text-gray-600 font-bold m-auto">
+                    ${operacion.monto}
+                </div>
+                <div class="m-auto">
+                    <p class="is-fullwidth">
+                        <a href="#" class="bg-blue-500 text-white py-1 px-2 rounded" onclick="editarOperacion(${index})">Editar</a>
+                        <a href="#" class="bg-red-500 text-white py-1 px-2 mr-2 rounded" onclick="eliminarOperacion(${index})">Eliminar</a>
+                    </p>
+                </div>
+            </div>`;
+            
+            conOperaciones.appendChild(nuevaOperacion);
+
+        });
+    } else {
+        sinOperaciones.style.display = 'block';
+    }
+}
+
+// Editar Operación
+function editarOperacion(index) {
+    let operaciones = localStorage.getItem('operaciones');
+    let operacionesParseadas = operaciones ? JSON.parse(operaciones) : [];
+
+    // Obtener la operación a editar
+    const operacion = operacionesParseadas[index];
+
+    // Llenar los campos del formulario con los datos de la operación
+    document.getElementById('descripcion-nueva-operacion').value = operacion.descripcion;
+    document.getElementById('monto-nueva-operacion').value = operacion.monto;
+    document.getElementById('tipo-nueva-operacion').value = operacion.tipo;
+    document.getElementById('categoria-nueva-operacion').value = operacion.categoria;
+    document.getElementById('fecha-nueva-operacion').value = operacion.fecha;
+
+    // Mostrar el formulario de nueva operación
+    document.getElementById('vista-nueva-operacion').classList.remove('hidden');
+    document.getElementById('vista-balance').classList.add('hidden');
+
+    // Cambiar el texto del botón de agregar para que diga "Guardar cambios"
+    const btnAgregarOperacion = document.getElementById('btn-agregar-operacion');
+    btnAgregarOperacion.textContent = 'Guardar cambios';
+
+    // Remover cualquier evento click previo
+    const newBtn = btnAgregarOperacion.cloneNode(true);
+    btnAgregarOperacion.parentNode.replaceChild(newBtn, btnAgregarOperacion);
+
+    // Asignar evento click para guardar los cambios
+    newBtn.addEventListener('click', function () {
+        operacion.descripcion = document.getElementById('descripcion-nueva-operacion').value;
+        operacion.monto = parseFloat(document.getElementById('monto-nueva-operacion').value);
+        operacion.tipo = document.getElementById('tipo-nueva-operacion').value;
+        operacion.categoria = document.getElementById('categoria-nueva-operacion').value;
+        operacion.fecha = document.getElementById('fecha-nueva-operacion').value;
+
+        localStorage.setItem('operaciones', JSON.stringify(operacionesParseadas));
+
+        mostrarOperaciones();
+        calcularGanancias();
+        calcularGastos();
+        calcularTotal();
+
+        // Ocultar el formulario y mostrar la vista de balance
+        document.getElementById('vista-nueva-operacion').classList.add('hidden');
+        document.getElementById('vista-balance').classList.remove('hidden');
+    });
+}
+
+// Eliminar Operación
+function eliminarOperacion(index) {
+    let operaciones = localStorage.getItem('operaciones');
+    let operacionesParseadas = operaciones ? JSON.parse(operaciones) : [];
+
+    operacionesParseadas.splice(index, 1);
+
+    localStorage.setItem('operaciones', JSON.stringify(operacionesParseadas));
+
+    mostrarOperaciones();
+    calcularGanancias();
+    calcularGastos();
+    calcularTotal();
+}
+
+// Llamar a mostrarOperaciones al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+    mostrarOperaciones();
+    calcularGanancias();
+    calcularGastos();
+    calcularTotal();
+});
+
+
 // Mostrar Categorías
 function mostrarCategorias() {
     const categorias = localStorage.getItem('categorias');
@@ -259,22 +378,21 @@ function mostrarCategorias() {
 
     categoriasParseadas.forEach(categoria => {
         const categoriaElemento = document.createElement('li');
-        categoriaElemento.classList.add('flex', 'justify-between', 'items-center', 'p-2', 'mb-2');
+        categoriaElemento.classList.add('flex', 'justify-between', 'items-center', 'border', 'p-2', 'mb-2');
         
         const nombreCategoria = document.createElement('span');
         nombreCategoria.textContent = categoria;
-        nombreCategoria.classList.add('bg-teal-100', 'rounded', 'text-sm', 'text-teal-800', 'py-1', 'px-2');
         
         const contenedorBotones = document.createElement('div');
         
         const botonEditar = document.createElement('button');
         botonEditar.textContent = 'Editar';
-        botonEditar.classList.add('text-blue', 'py-1', 'px-2', 'mr-2', 'rounded', 'text-sm');
+        botonEditar.classList.add('bg-blue-500', 'text-white', 'py-1', 'px-2', 'mr-2', 'rounded');
         botonEditar.addEventListener('click', () => editarCategoria(categoria));
         
         const botonEliminar = document.createElement('button');
         botonEliminar.textContent = 'Eliminar';
-        botonEliminar.classList.add('text-blue', 'py-1', 'px-2', 'rounded', 'text-sm');
+        botonEliminar.classList.add('bg-red-500', 'text-white', 'py-1', 'px-2', 'rounded');
         botonEliminar.addEventListener('click', () => eliminarCategoria(categoria));
         
         contenedorBotones.appendChild(botonEditar);
@@ -287,6 +405,7 @@ function mostrarCategorias() {
     });
 }
 
+// Editar Categoría
 function editarCategoria(categoria) {
     const nuevoNombre = prompt('Editar nombre de la categoría:', categoria);
     if (nuevoNombre) {
@@ -300,6 +419,7 @@ function editarCategoria(categoria) {
     }
 }
 
+// Eliminar Categoría
 function eliminarCategoria(categoria) {
     if (confirm(`¿Está seguro de que desea eliminar la categoría "${categoria}"?`)) {
         let categorias = JSON.parse(localStorage.getItem('categorias'));
