@@ -305,31 +305,26 @@ function editarOperacion(index) {
     const operacion = operacionesParseadas[index];
 
     // Llenar los campos del formulario con los datos de la operación
-    document.getElementById('descripcion-nueva-operacion').value = operacion.descripcion;
-    document.getElementById('monto-nueva-operacion').value = operacion.monto;
-    document.getElementById('tipo-nueva-operacion').value = operacion.tipo;
-    document.getElementById('categoria-nueva-operacion').value = operacion.categoria;
-    document.getElementById('fecha-nueva-operacion').value = operacion.fecha;
+    document.getElementById('descripcion-operacion').value = operacion.descripcion;
+    document.getElementById('monto-operacion').value = operacion.monto;
+    document.getElementById('tipo-operacion').value = operacion.tipo;
+    document.getElementById('categoria-operacion').value = operacion.categoria;
+    document.getElementById('fecha-operacion').value = operacion.fecha;
 
     // Mostrar el formulario de nueva operación
-    document.getElementById('vista-nueva-operacion').classList.remove('hidden');
-    document.getElementById('vista-balance').classList.add('hidden');
-
-    // Cambiar el texto del botón de agregar para que diga "Guardar cambios"
-    const btnAgregarOperacion = document.getElementById('btn-agregar-operacion');
-    btnAgregarOperacion.textContent = 'Guardar cambios';
+    document.getElementById('vista-editar-operacion').classList.remove('hidden');
+    document.getElementById('vista-balance').style.display ='none';
 
     // Remover cualquier evento click previo
-    const newBtn = btnAgregarOperacion.cloneNode(true);
-    btnAgregarOperacion.parentNode.replaceChild(newBtn, btnAgregarOperacion);
+    const newBtn = document.getElementById('btn-editar-operacion');
 
     // Asignar evento click para guardar los cambios
     newBtn.addEventListener('click', function () {
-        operacion.descripcion = document.getElementById('descripcion-nueva-operacion').value;
-        operacion.monto = parseFloat(document.getElementById('monto-nueva-operacion').value);
-        operacion.tipo = document.getElementById('tipo-nueva-operacion').value;
-        operacion.categoria = document.getElementById('categoria-nueva-operacion').value;
-        operacion.fecha = document.getElementById('fecha-nueva-operacion').value;
+        operacion.descripcion = document.getElementById('descripcion-operacion').value;
+        operacion.monto = parseFloat(document.getElementById('monto-operacion').value);
+        operacion.tipo = document.getElementById('tipo-operacion').value;
+        operacion.categoria = document.getElementById('categoria-operacion').value;
+        operacion.fecha = document.getElementById('fecha-operacion').value;
 
         localStorage.setItem('operaciones', JSON.stringify(operacionesParseadas));
 
@@ -339,8 +334,8 @@ function editarOperacion(index) {
         calcularTotal();
 
         // Ocultar el formulario y mostrar la vista de balance
-        document.getElementById('vista-nueva-operacion').classList.add('hidden');
-        document.getElementById('vista-balance').classList.remove('hidden');
+        document.getElementById('vista-editar-operacion').classList.add('hidden');
+        document.getElementById('vista-balance').style.display ='flex';
     });
 }
 
