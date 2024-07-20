@@ -38,7 +38,7 @@
         </header>
         <!-- VISTA BALANCE -->
         <div class="w-full m-auto py-14 lg:w-3/4 lg:flex items-start lg:justify-center gap-7" id="vista-balance">
-            <aside class="md:flex flex-col m-auto items-center lg:w-1/4">
+            <aside class="md:flex flex-col items-center lg:w-1/4">
                 <!-- BALANCE -->
                 <article class="bg-white block p-6 w-11/12 lg:w-full m-auto rounded-md drop-shadow-lg">
                     <h2 class="text-black font-bold text-4xl mb-10">Balance</h2>
@@ -68,8 +68,8 @@
                             </select>
                         </div>
                         <div class="flex flex-col">
-                            <label for="categorias-select" class="text-black text-lg font-bold mb-2">Categoría</label>
-                            <select name="categoria" id="categorias-select" class="border-gray-200 border p-2 mb-3">
+                            <label for="categorias-filtro" class="text-black text-lg font-bold mb-2">Categoría</label>
+                            <select name="categoria" id="categorias-filtro" class="border-gray-200 border p-2 mb-3">
                                 <option value="Todas">Todas</option>
                             </select>
                         </div>
@@ -151,12 +151,12 @@
                     <label for="categoria-nueva-operacion" class="text-black text-lg font-bold mb-2">Categoría</label>
                     <select name="categoria" id="categoria-nueva-operacion" class="border-gray-200 border p-2 mb-3">
                         <option selected disabled>Seleccione una opcion</option>
-                        <option value="Comida">Comida</option>
+<!--                         <option value="Comida">Comida</option>
                         <option value="Servicios">Servicios</option>
                         <option value="Salidas">Salidas</option>
                         <option value="Educación">Educación</option>
                         <option value="Transporte">Transporte</option>
-                        <option value="Trabajo">Trabajo</option>
+                        <option value="Trabajo">Trabajo</option> -->
                     </select>
                 </div>
                 <div class="flex flex-col">
@@ -204,13 +204,13 @@
                 <div class="flex flex-col">
                     <label for="categoria-operacion" class="text-black text-lg font-bold mb-2">Categoría</label>
                     <select name="categoria" id="categoria-operacion" class="border-gray-200 border p-2 mb-3">
-                        <option selected disabled>Seleccione una opcion</option>
-                        <option value="Comida">Comida</option>
+                        <option disabled selected>Seleccione una opcion</option>
+<!--                         <option value="Comida">Comida</option>
                         <option value="Servicios">Servicios</option>
                         <option value="Salidas">Salidas</option>
                         <option value="Educación">Educación</option>
                         <option value="Transporte">Transporte</option>
-                        <option value="Trabajo">Trabajo</option>
+                        <option value="Trabajo">Trabajo</option> -->
                     </select>
                 </div>
                 <div class="flex flex-col">
@@ -220,7 +220,7 @@
                 </div>
                 <div class="flex justify-end mt-6 gap-2">
                     <button class="bg-bgwhite hover:bg-bgwhite text-black py-2 px-4 text-lg rounded-md lg:px-4 lg:py-2"
-                        id="btn-cancelar-operacion">
+                        id="btn-cancelar-edicion">
                         Cancelar
                     </button>
                     <button class="bg-teal hover:bg-dark-teal text-white py-2 px-4 text-lg rounded-md lg:px-4 lg:py-0"
@@ -238,11 +238,11 @@
             <h2 class="text-black font-bold text-4xl mb-10">Categorías</h2>
             <div class="flex-col w-full">
                 <div class="">
-                    <label for="nombre-categoria-input" class="text-black text-lg font-bold mb-2">Nombre</label>
+                    <label for="nombre-categoria-input" class="text-black text-lg font-bold mb-2 ">Nombre</label>
                 </div>
                 <div class="flex">
                     <input type="text" name="nombre-categoria-input"
-                        class="border-gray-200 border py-3 my-3 mr-3 rounded-lg w-full" id="nombre-categoria-input">
+                        class="border-gray-200 border p-2 my-3 mr-3 w-full" id="nombre-categoria-input">
                     <button
                         class="bg-teal hover:bg-dark-teal text-white py-0 px-3 my-3 mr-3 text-lg rounded-md lg:px-4 lg:py-2"
                         id="agregar-categoria-btn">Agregar</button>

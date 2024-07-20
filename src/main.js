@@ -1,15 +1,21 @@
 // Cargar categorias
-const categoriasSelect = document.querySelector('#categorias-select');
-const listaCategorias = document.querySelector('#lista-categorias');
 
 function cargarCategorias(categorias) {
-    categoriasSelect.innerHTML = ''; // Limpiar las categorías anteriores
+    const categoriasNuevaOperacion = document.querySelector('#categoria-nueva-operacion');
+    const categoriasFiltro = document.querySelector('#categorias-filtro');
+    //categoriasFiltro.innerHTML = ''; // Limpiar las categorías anteriores
     categorias.forEach(categoria => {
         let nuevaCategoria = document.createElement('option');
         nuevaCategoria.value = categoria;
         nuevaCategoria.textContent = categoria;
-        categoriasSelect.appendChild(nuevaCategoria);
+        categoriasNuevaOperacion.appendChild(nuevaCategoria);
+
+        let option = document.createElement('option');
+        option.value = categoria;
+        option.textContent = categoria;
+        categoriasFiltro.appendChild(option);
     });
+
     mostrarCategorias();
 }
 
@@ -205,9 +211,9 @@ btnMenu.addEventListener('click', () => {
 
 //Nueva Operacion
 btnNuevaOperacion.addEventListener('click', () => {
-        vistaBalance.style.display = 'none';
-        vistaNuevaOperacion.classList.remove('hidden');
-    }
+    vistaBalance.style.display = 'none';
+    vistaNuevaOperacion.classList.remove('hidden');
+}
 );
 
 const descripcionNuevaOperacion = document.getElementById('descripcion-nueva-operacion');
@@ -235,6 +241,8 @@ function crearOperacion() {
         localStorage.setItem("operaciones", JSON.stringify(parsedStorage));
     }
     mostrarOperaciones();
+    const categorias = JSON.parse(localStorage.getItem('categorias')) || [];
+    cargarCategorias(categorias);
     calcularGanancias();
     calcularGastos();
     calcularTotal();
@@ -287,7 +295,7 @@ function mostrarOperaciones() {
                     </p>
                 </div>
             </div>`;
-            
+
             conOperaciones.appendChild(nuevaOperacion);
 
         });
@@ -296,13 +304,65 @@ function mostrarOperaciones() {
     }
 }
 
+// Mostrar Categorías
+function mostrarCategorias() {
+    const categorias = localStorage.getItem('categorias');
+    const categoriasParseadas = categorias ? JSON.parse(categorias) : [];
+    const listaCategorias = document.querySelector('#lista-categorias');
+
+    listaCategorias.innerHTML = ''; // Limpiar las categorías anteriores
+
+    categoriasParseadas.forEach(categoria => {
+        const categoriaElemento = document.createElement('li');
+        categoriaElemento.classList.add('flex', 'justify-between', 'items-center', 'border', 'p-2', 'mb-2');
+
+        const nombreCategoria = document.createElement('span');
+        nombreCategoria.textContent = categoria;
+
+        const contenedorBotones = document.createElement('div');
+
+        const botonEditar = document.createElement('button');
+        botonEditar.textContent = 'Editar';
+        botonEditar.classList.add('bg-blue-500', 'text-white', 'py-1', 'px-2', 'mr-2', 'rounded');
+        botonEditar.addEventListener('click', () => editarCategoria(categoria));
+
+        const botonEliminar = document.createElement('button');
+        botonEliminar.textContent = 'Eliminar';
+        botonEliminar.classList.add('bg-red-500', 'text-white', 'py-1', 'px-2', 'rounded');
+        botonEliminar.addEventListener('click', () => eliminarCategoria(categoria));
+
+        contenedorBotones.appendChild(botonEditar);
+        contenedorBotones.appendChild(botonEliminar);
+
+        categoriaElemento.appendChild(nombreCategoria);
+        categoriaElemento.appendChild(contenedorBotones);
+
+        listaCategorias.appendChild(categoriaElemento);
+    });
+}
+
+function cargarCategoriasEdicion() {
+    const categorias = JSON.parse(localStorage.getItem('categorias')) || [];
+    const categoriasSelect = document.getElementById('categoria-operacion');
+    categoriasSelect.innerHTML = ''; // Limpiar las opciones anteriores
+
+    categorias.forEach(categoria => {
+        let option = document.createElement('option');
+        option.value = categoria;
+        option.textContent = categoria;
+        categoriasSelect.appendChild(option);
+    });
+}
+
 // Editar Operación
 function editarOperacion(index) {
     let operaciones = localStorage.getItem('operaciones');
     let operacionesParseadas = operaciones ? JSON.parse(operaciones) : [];
-
     // Obtener la operación a editar
     const operacion = operacionesParseadas[index];
+
+    // Cargar las categorías desde el localStorage en el campo de selección
+    cargarCategoriasEdicion();
 
     // Llenar los campos del formulario con los datos de la operación
     document.getElementById('descripcion-operacion').value = operacion.descripcion;
@@ -313,13 +373,15 @@ function editarOperacion(index) {
 
     // Mostrar el formulario de nueva operación
     document.getElementById('vista-editar-operacion').classList.remove('hidden');
-    document.getElementById('vista-balance').style.display ='none';
+    document.getElementById('vista-balance').style.display = 'none';
 
-    // Remover cualquier evento click previo
+    // Clonar y reemplazar el botón "Guardar cambios"
     const newBtn = document.getElementById('btn-editar-operacion');
+    const newBtnClone = newBtn.cloneNode(true);
+    newBtn.parentNode.replaceChild(newBtnClone, newBtn);
 
     // Asignar evento click para guardar los cambios
-    newBtn.addEventListener('click', function () {
+    newBtnClone.addEventListener('click', function () {
         operacion.descripcion = document.getElementById('descripcion-operacion').value;
         operacion.monto = parseFloat(document.getElementById('monto-operacion').value);
         operacion.tipo = document.getElementById('tipo-operacion').value;
@@ -329,15 +391,32 @@ function editarOperacion(index) {
         localStorage.setItem('operaciones', JSON.stringify(operacionesParseadas));
 
         mostrarOperaciones();
+        mostrarCategorias();
         calcularGanancias();
         calcularGastos();
         calcularTotal();
 
         // Ocultar el formulario y mostrar la vista de balance
         document.getElementById('vista-editar-operacion').classList.add('hidden');
-        document.getElementById('vista-balance').style.display ='flex';
+        document.getElementById('vista-balance').style.display = 'flex';
+    });
+
+    // Seleccionar la categoría actual de la operación
+    document.getElementById('categoria-operacion').value = operacion.categoria;
+
+    // Clonar y reemplazar el botón "Cancelar"
+    const cancelarBtn = document.getElementById('btn-cancelar-edicion');
+    const cancelarBtnClone = cancelarBtn.cloneNode(true);
+    cancelarBtn.parentNode.replaceChild(cancelarBtnClone, cancelarBtn);
+
+    // Asignar evento click para cancelar y volver a la vista de balance
+    cancelarBtnClone.addEventListener('click', function () {
+        console.log('estoy en el boton cancelar');
+        document.getElementById('vista-editar-operacion').classList.add('hidden');
+        document.getElementById('vista-balance').style.display = 'flex';
     });
 }
+
 
 // Eliminar Operación
 function eliminarOperacion(index) {
@@ -349,6 +428,7 @@ function eliminarOperacion(index) {
     localStorage.setItem('operaciones', JSON.stringify(operacionesParseadas));
 
     mostrarOperaciones();
+    mostrarCategorias();
     calcularGanancias();
     calcularGastos();
     calcularTotal();
@@ -357,48 +437,14 @@ function eliminarOperacion(index) {
 // Llamar a mostrarOperaciones al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
     mostrarOperaciones();
+    mostrarCategorias();
     calcularGanancias();
     calcularGastos();
     calcularTotal();
 });
 
 
-// Mostrar Categorías
-function mostrarCategorias() {
-    const categorias = localStorage.getItem('categorias');
-    const categoriasParseadas = categorias ? JSON.parse(categorias) : [];
-    const listaCategorias = document.querySelector('#lista-categorias');
-    
-    listaCategorias.innerHTML = ''; // Limpiar las categorías anteriores
 
-    categoriasParseadas.forEach(categoria => {
-        const categoriaElemento = document.createElement('li');
-        categoriaElemento.classList.add('flex', 'justify-between', 'items-center', 'border', 'p-2', 'mb-2');
-        
-        const nombreCategoria = document.createElement('span');
-        nombreCategoria.textContent = categoria;
-        
-        const contenedorBotones = document.createElement('div');
-        
-        const botonEditar = document.createElement('button');
-        botonEditar.textContent = 'Editar';
-        botonEditar.classList.add('bg-blue-500', 'text-white', 'py-1', 'px-2', 'mr-2', 'rounded');
-        botonEditar.addEventListener('click', () => editarCategoria(categoria));
-        
-        const botonEliminar = document.createElement('button');
-        botonEliminar.textContent = 'Eliminar';
-        botonEliminar.classList.add('bg-red-500', 'text-white', 'py-1', 'px-2', 'rounded');
-        botonEliminar.addEventListener('click', () => eliminarCategoria(categoria));
-        
-        contenedorBotones.appendChild(botonEditar);
-        contenedorBotones.appendChild(botonEliminar);
-        
-        categoriaElemento.appendChild(nombreCategoria);
-        categoriaElemento.appendChild(contenedorBotones);
-        
-        listaCategorias.appendChild(categoriaElemento);
-    });
-}
 
 // Editar Categoría
 function editarCategoria(categoria) {
