@@ -3,7 +3,10 @@
 function cargarCategorias(categorias) {
     const categoriasNuevaOperacion = document.querySelector('#categoria-nueva-operacion');
     const categoriasFiltro = document.querySelector('#categorias-filtro');
-    //categoriasFiltro.innerHTML = ''; // Limpiar las categorías anteriores
+
+        categoriasNuevaOperacion.innerHTML = ''; // Limpiar las opciones previas
+        categoriasFiltro.innerHTML = ''; // Limpiar las opciones previas
+
     categorias.forEach(categoria => {
         let nuevaCategoria = document.createElement('option');
         nuevaCategoria.value = categoria;
