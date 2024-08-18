@@ -4,8 +4,8 @@ function cargarCategorias(categorias) {
     const categoriasNuevaOperacion = document.querySelector('#categoria-nueva-operacion');
     const categoriasFiltro = document.querySelector('#categorias-filtro');
 
-        categoriasNuevaOperacion.innerHTML = ''; // Limpiar las opciones previas
-        categoriasFiltro.innerHTML = ''; // Limpiar las opciones previas
+        categoriasNuevaOperacion.innerHTML = '';
+        categoriasFiltro.innerHTML = '';
 
     categorias.forEach(categoria => {
         let nuevaCategoria = document.createElement('option');
@@ -268,7 +268,13 @@ function mostrarOperaciones() {
     const conOperaciones = document.querySelector('#con-operaciones');
     const sinOperaciones = document.querySelector('#sin-operaciones');
 
-    conOperaciones.innerHTML = ''; // Limpiar las operaciones anteriores
+    conOperaciones.innerHTML = `<div class="flex justify-between mt-8">
+                            <div class="font-bold w-1/4">Descripción</div>
+                            <div class="font-bold">Categoría</div>
+                            <div class="font-bold">Fecha</div>
+                            <div class="font-bold">Monto</div>
+                            <div class="font-bold mr-10">Acciones</div>
+                        </div>`; // Limpiar las operaciones anteriores
 
     if (operacionesParseadas.length > 0) {
         sinOperaciones.style.display = 'none';
@@ -280,22 +286,22 @@ function mostrarOperaciones() {
             const nuevaOperacion = document.createElement('div');
             nuevaOperacion.innerHTML = `
             <div class="flex justify-between items-center p-2 mt-10">
-                <div class="w-1/4 text-gray-600">
+                <div class="w-1/4 text-gray-800 font-bold">
                     <h3 class="">${operacion.descripcion}</h3>
                 </div>
-                <div class="bg-teal-100 rounded text-sm text-teal-800 py-1 px-2 m-auto">
+                <div class="text-sm bg-teal-100 rounded text-sm text-teal-900 py-1 px-2">
                     <span class="tag">${operacion.categoria}</span>
                 </div>
-                <div class="text-gray-600 m-auto">
+                <div class="text-gray-600">
                     ${operacion.fecha}
                 </div>
-                <div class="text-gray-600 font-bold m-auto">
+                <div class="text-gray-600 font-bold">
                     ${operacion.monto}
                 </div>
-                <div class="m-auto">
+                <div class="right">
                     <p class="is-fullwidth">
-                        <a href="#" class="bg-blue-500 text-white py-1 px-2 rounded" onclick="editarOperacion(${index})">Editar</a>
-                        <a href="#" class="bg-red-500 text-white py-1 px-2 mr-2 rounded" onclick="eliminarOperacion(${index})">Eliminar</a>
+                        <a href="#" class="text-sm text-blue-500 text-white py-1 px-2 rounded" onclick="editarOperacion(${index})">Editar</a>
+                        <a href="#" class="text-sm text-red-500 text-white py-1 px-2 mr-2 rounded" onclick="eliminarOperacion(${index})">Eliminar</a>
                     </p>
                 </div>
             </div>`;
