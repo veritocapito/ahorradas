@@ -174,6 +174,7 @@ btnCategorias.addEventListener('click', () => cambiarVista(vistaCategorias));
 btnReportes.addEventListener('click', () => cambiarVista(vistaReportes));
 btnCancelarOperacion.addEventListener('click', () => cambiarVista(vistaBalance));
 
+        btnNuevaOperacion.addEventListener('click', () => cambiarVista(vistaNuevaOperacion));
 
 // Boton Filtros
 const btnFiltros = document.getElementById('btn-filtros');
