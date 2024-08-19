@@ -537,3 +537,63 @@ agregarCategoriaBtn.addEventListener("click", () => {
     cargarCategorias(categorias);
   }
 });
+
+
+// Vista reportes
+
+let conReportes = document.getElementById("con-reportes")
+let sinReportes = document.getElementById("sin-reportes")
+
+let tieneGanancia = false;
+let tieneGasto = false;
+
+operacionesParseadas.forEach((operacion) => {
+  if (operacion.tipo === "Ganancia") {
+    tieneGanancia = true;
+  }
+  if (operacion.tipo === "Gasto") {
+    tieneGasto = true;
+  }
+});
+
+if (tieneGanancia && tieneGasto) {
+  sinReportes.classList.add("hidden");
+  conReportes.classList.remove("hidden");
+}
+
+
+
+
+
+/* if (operacionesParseadas.length > 0) {
+    sinOperaciones.style.display = "none";
+    conOperaciones.style.display = "flex";
+    operacionesParseadas.forEach((operacion) => {
+      const nuevoElemento = document.createElement("div");
+      nuevoElemento.innerHTML = `
+            <div class="flex justify-between mt-6">
+                <div class="w-1/4 text-gray-600">
+                    <h3 class="">${operacion.descripcion}</h3>
+                </div>
+                <div class="bg-teal-100 rounded text-sm text-teal-800 py-1 px-2 m-auto">
+                    <span class="tag">${operacion.categoria}</span>
+                </div>
+                <div class="text-gray-600 m-auto">
+                    ${operacion.fecha}
+                </div>
+                <div class="text-gray-600 font-bold m-auto">
+                    ${operacion.monto}
+                </div>
+                <div class="m-auto">
+                    <p class="is-fullwidth">
+                        <a href="#" class="text-sm text-blue-500 text-white py-1 px-2 rounded">Editar</a>
+                        <a href="#" class="text-sm text-red-600 text-white py-1 px-2 rounded">Eliminar</a>
+                    </p>
+                </div>
+            </div>`;
+      conOperaciones.appendChild(nuevoElemento);
+    });
+  } else {
+    sinOperaciones.style.display = "block";
+  }
+} */
