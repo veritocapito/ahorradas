@@ -39,7 +39,7 @@ function mostrarOperaciones() {
     operacionesParseadas.forEach((operacion) => {
       const nuevoElemento = document.createElement("div");
       nuevoElemento.innerHTML = `
-            <div class="flex justify-between mt-6">
+            <div class="flex justify-between mt-6 id="nuevo-elemento">
                 <div class="w-1/4 text-gray-600">
                     <h3 class="">${operacion.descripcion}</h3>
                 </div>
@@ -49,7 +49,11 @@ function mostrarOperaciones() {
                 <div class="text-gray-600 m-auto">
                     ${operacion.fecha}
                 </div>
-                <div class="text-gray-600 font-bold m-auto">
+                <div class="text-gray-600 font-bold m-auto ${
+                  operacion.tipo === "Ganancia"
+                    ? "text-green-600"
+                    : "text-red-600"
+                }">
                     ${operacion.monto}
                 </div>
                 <div class="m-auto">
@@ -306,8 +310,10 @@ function mostrarOperaciones() {
                 <div class="text-gray-600">
                     ${operacion.fecha}
                 </div>
-                <div class="text-gray-600 font-bold">
-                    ${operacion.monto}
+                <div class="text-gray-600 font-bold ${operacion.tipo === "Ganancia"
+                    ? "text-green-600"
+                    : "text-red-600"}">
+                    ${operacion.tipo === "Ganancia" ? "+$"+operacion.monto : "$"+operacion.monto}
                 </div>
                 <div class="right">
                     <p class="is-fullwidth">
@@ -538,62 +544,40 @@ agregarCategoriaBtn.addEventListener("click", () => {
   }
 });
 
+// Mostrar vista reportes
 
-// Vista reportes
-
-let conReportes = document.getElementById("con-reportes")
-let sinReportes = document.getElementById("sin-reportes")
-
-let tieneGanancia = false;
-let tieneGasto = false;
-
-operacionesParseadas.forEach((operacion) => {
-  if (operacion.tipo === "Ganancia") {
-    tieneGanancia = true;
-  }
-  if (operacion.tipo === "Gasto") {
-    tieneGasto = true;
-  }
-});
-
-if (tieneGanancia && tieneGasto) {
+const conReportes = document.getElementById("con-reportes");
+const sinReportes = document.getElementById("sin-reportes");
+if (
+  operacionesParseadas.some((operacion) => operacion.tipo === "Ganancia") &&
+  operacionesParseadas.some((operacion) => operacion.tipo === "Gasto")
+) {
   sinReportes.classList.add("hidden");
   conReportes.classList.remove("hidden");
+} else {
+  sinReportes.classList.remove("hidden");
+  conReportes.classList.add("hidden");
 }
 
+// Resumen de balance
+
+let catMayorGanancia = document.getElementById("cat-mayor-ganancia");
+let catMayorGasto = document.getElementById("cat-mayor-gasto");
+let catMayorBalance = document.getElementById("cat-mayor-balance");
+let mesMayorGanancia = document.getElementById("mes-mayor-ganancia");
+let mesMayorGasto = document.getElementById("mes-mayor-gasto");
 
 
 
 
-/* if (operacionesParseadas.length > 0) {
-    sinOperaciones.style.display = "none";
-    conOperaciones.style.display = "flex";
-    operacionesParseadas.forEach((operacion) => {
-      const nuevoElemento = document.createElement("div");
-      nuevoElemento.innerHTML = `
-            <div class="flex justify-between mt-6">
-                <div class="w-1/4 text-gray-600">
-                    <h3 class="">${operacion.descripcion}</h3>
-                </div>
-                <div class="bg-teal-100 rounded text-sm text-teal-800 py-1 px-2 m-auto">
-                    <span class="tag">${operacion.categoria}</span>
-                </div>
-                <div class="text-gray-600 m-auto">
-                    ${operacion.fecha}
-                </div>
-                <div class="text-gray-600 font-bold m-auto">
-                    ${operacion.monto}
-                </div>
-                <div class="m-auto">
-                    <p class="is-fullwidth">
-                        <a href="#" class="text-sm text-blue-500 text-white py-1 px-2 rounded">Editar</a>
-                        <a href="#" class="text-sm text-red-600 text-white py-1 px-2 rounded">Eliminar</a>
-                    </p>
-                </div>
-            </div>`;
-      conOperaciones.appendChild(nuevoElemento);
-    });
-  } else {
-    sinOperaciones.style.display = "block";
-  }
-} */
+
+//Filtros
+let tipoFiltro = document.getElementById("tipo-filtro")
+
+function tipoFiltrado(event){
+if (nuevoElemento.node.contains(operacion.tipo === "Ganancia")){
+
+}
+}
+
+tipoFiltro.addEventListener("input", tipoFiltrado)
