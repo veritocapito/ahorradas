@@ -300,8 +300,8 @@ function mostrarOperaciones() {
 
       const nuevaOperacion = document.createElement("div");
       nuevaOperacion.innerHTML = `
-            <div class="flex justify-between items-center p-2 mt-6">
-                <div class="w-1/4 text-gray-800 font-bold">
+            <div class="flex justify-between items-center mt-6">
+                <div class="w-1/4 text-gray-800 font-bold capitalize">
                     <h3 class="">${operacion.descripcion}</h3>
                 </div>
                 <div class="text-sm bg-teal-100 rounded text-sm text-teal-900 py-1 px-2">
@@ -310,10 +310,16 @@ function mostrarOperaciones() {
                 <div class="text-gray-600">
                     ${operacion.fecha}
                 </div>
-                <div class="text-gray-600 font-bold ${operacion.tipo === "Ganancia"
+                <div class="text-gray-600 font-bold ${
+                  operacion.tipo === "Ganancia"
                     ? "text-green-600"
-                    : "text-red-600"}">
-                    ${operacion.tipo === "Ganancia" ? "+$"+operacion.monto : "$"+operacion.monto}
+                    : "text-red-600"
+                }">
+                    ${
+                      operacion.tipo === "Ganancia"
+                        ? "+$" + operacion.monto
+                        : "$" + operacion.monto
+                    }
                 </div>
                 <div class="right">
                     <p class="is-fullwidth">
@@ -346,7 +352,8 @@ function mostrarCategorias() {
       "justify-between",
       "items-center",
       "p-2",
-      "mb-2"
+      "mb-2",
+      "capitalize"
     );
 
     const nombreCategoria = document.createElement("span");
@@ -489,6 +496,7 @@ function eliminarOperacion(index) {
 
   mostrarOperaciones();
   mostrarCategorias();
+  mostrarReportes();
   calcularGanancias();
   calcularGastos();
   calcularTotal();
@@ -501,6 +509,7 @@ document.addEventListener("DOMContentLoaded", () => {
   calcularGanancias();
   calcularGastos();
   calcularTotal();
+  mostrarReportes();
 });
 
 // Editar Categoría
@@ -548,16 +557,21 @@ agregarCategoriaBtn.addEventListener("click", () => {
 
 const conReportes = document.getElementById("con-reportes");
 const sinReportes = document.getElementById("sin-reportes");
-if (
-  operacionesParseadas.some((operacion) => operacion.tipo === "Ganancia") &&
-  operacionesParseadas.some((operacion) => operacion.tipo === "Gasto")
-) {
-  sinReportes.classList.add("hidden");
-  conReportes.classList.remove("hidden");
-} else {
-  sinReportes.classList.remove("hidden");
-  conReportes.classList.add("hidden");
+
+function mostrarReportes() {
+  if (
+    operacionesParseadas.some((operacion) => operacion.tipo === "Ganancia") &&
+    operacionesParseadas.some((operacion) => operacion.tipo === "Gasto")
+  ) {
+    sinReportes.classList.add("hidden");
+    conReportes.classList.remove("hidden");
+  } else {
+    sinReportes.classList.remove("hidden");
+    conReportes.classList.add("hidden");
+  }
 }
+
+mostrarReportes();
 
 // Resumen de balance
 
@@ -567,17 +581,23 @@ let catMayorBalance = document.getElementById("cat-mayor-balance");
 let mesMayorGanancia = document.getElementById("mes-mayor-ganancia");
 let mesMayorGasto = document.getElementById("mes-mayor-gasto");
 
-
-
-
-
 //Filtros
-let tipoFiltro = document.getElementById("tipo-filtro")
+let tipoFiltro = document.getElementById("tipo-filtro");
 
-function tipoFiltrado(event){
-if (nuevoElemento.node.contains(operacion.tipo === "Ganancia")){
-
+function filtradasPorTipo(event) {
+  let filtroTipo = event.target.value;
+  let operaciones = JSON.parse(localStorage.getItem("operaciones")) || [];
+  let operacionesFiltradasPorTipo = operaciones;
+  if (filtroTipo === "Ganancia") {
+    operacionesFiltradasPorTipo = operaciones.filter(
+      (operacion) => operacion.tipo === "Ganancia"
+    );
+  } else {
+    operacionesFiltradasPorTipo = operaciones.filter(
+      (operacion) => operacion.tipo === "Gasto"
+    );
+  }
+  mostrarOperaciones(operacionesFiltradasPorTipo)
 }
-}
 
-tipoFiltro.addEventListener("input", tipoFiltrado)
+tipoFiltro.addEventListener("change", filtradasPorTipo);
