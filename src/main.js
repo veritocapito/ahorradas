@@ -227,8 +227,18 @@ btnMenu.addEventListener("click", () => {
 btnNuevaOperacion.addEventListener("click", () => {
   vistaBalance.style.display = "none";
   vistaNuevaOperacion.classList.remove("hidden");
+  vaciarInputs()
 });
 
+//Vaciar datos de nueva operacion todas las veces
+function vaciarInputs(){
+  descripcionNuevaOperacion.value = ""
+  montoNuevaOperacion.value = 0
+  tipoNuevaOperacion.value = "Seleccione una opcion"
+  categoriaNuevaOperacion.value = "Seleccione una opcion"
+  fechaNuevaOperacion.value = ""
+}
+ 
 const descripcionNuevaOperacion = document.getElementById(
   "descripcion-nueva-operacion"
 );
