@@ -482,3 +482,127 @@ agregarCategoriaBtn.addEventListener('click', () => {
         cargarCategorias(categorias);
     }
 });
+
+
+//REPORTES
+
+function calcularReportes() {
+    const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+    const categorias = {};
+    const meses = {};
+
+    operaciones.forEach(operacion => {
+        const fecha = new Date(operacion.fecha);
+        const mesAnio = `${fecha.getMonth() + 1}-${fecha.getFullYear()}`; // Mes y año (ej. "9-2024")
+
+        // Agrupar por categoría
+        if (!categorias[operacion.categoria]) {
+            categorias[operacion.categoria] = { ganancia: 0, gasto: 0, balance: 0 };
+        }
+        if (operacion.tipo === 'Ganancia') {
+            categorias[operacion.categoria].ganancia += parseFloat(operacion.monto);
+        } else if (operacion.tipo === 'Gasto') {
+            categorias[operacion.categoria].gasto += parseFloat(operacion.monto);
+        }
+        categorias[operacion.categoria].balance += (operacion.tipo === 'Ganancia') 
+            ? parseFloat(operacion.monto) 
+            : -parseFloat(operacion.monto);
+
+        // Agrupar por mes
+        if (!meses[mesAnio]) {
+            meses[mesAnio] = { ganancia: 0, gasto: 0 };
+        }
+        if (operacion.tipo === 'Ganancia') {
+            meses[mesAnio].ganancia += parseFloat(operacion.monto);
+        } else if (operacion.tipo === 'Gasto') {
+            meses[mesAnio].gasto += parseFloat(operacion.monto);
+        }
+    });
+
+    return { categorias, meses };
+}
+
+
+function obtenerMaximos(categorias, meses) {
+    let maxGananciaCategoria = '', maxGastoCategoria = '', maxBalanceCategoria = '';
+    let maxGanancia = 0, maxGasto = 0, maxBalance = -Infinity;
+    
+    // Calcular las categorías con mayores valores
+    for (const categoria in categorias) {
+        if (categorias[categoria].ganancia > maxGanancia) {
+            maxGanancia = categorias[categoria].ganancia;
+            maxGananciaCategoria = categoria;
+        }
+        if (categorias[categoria].gasto > maxGasto) {
+            maxGasto = categorias[categoria].gasto;
+            maxGastoCategoria = categoria;
+        }
+        if (categorias[categoria].balance > maxBalance) {
+            maxBalance = categorias[categoria].balance;
+            maxBalanceCategoria = categoria;
+        }
+    }
+
+    let maxGananciaMes = '', maxGastoMes = '';
+    let maxMesGanancia = 0, maxMesGasto = 0;
+
+    // Calcular los meses con mayores valores
+    for (const mes in meses) {
+        if (meses[mes].ganancia > maxMesGanancia) {
+            maxMesGanancia = meses[mes].ganancia;
+            maxGananciaMes = mes;
+        }
+        if (meses[mes].gasto > maxMesGasto) {
+            maxMesGasto = meses[mes].gasto;
+            maxGastoMes = mes;
+        }
+    }
+
+    return {
+        maxGananciaCategoria, maxGastoCategoria, maxBalanceCategoria,
+        maxGanancia, maxGasto, maxBalance,
+        maxGananciaMes, maxMesGanancia, maxGastoMes, maxMesGasto
+    };
+}
+
+
+function mostrarReportes() {
+    const { categorias, meses } = calcularReportes();
+    const maximos = obtenerMaximos(categorias, meses);
+
+    // Actualizar categoría con mayor ganancia
+    document.querySelector('#cat-mayor-ganancia div:nth-child(2)').textContent = 
+        `${maximos.maxGananciaCategoria}`;
+    document.querySelector('#cat-mayor-ganancia div:nth-child(3)').textContent = 
+        `$${maximos.maxGanancia.toFixed(2)}`;
+
+    // Actualizar categoría con mayor gasto
+    document.querySelector('#cat-mayor-gasto div:nth-child(2)').textContent = 
+        `${maximos.maxGastoCategoria}`;
+    document.querySelector('#cat-mayor-gasto div:nth-child(3)').textContent = 
+        `$${maximos.maxGasto.toFixed(2)}`;
+
+    // Actualizar categoría con mayor balance
+    document.querySelector('#cat-mayor-balance div:nth-child(2)').textContent = 
+        `${maximos.maxBalanceCategoria}`;
+    document.querySelector('#cat-mayor-balance div:nth-child(3)').textContent = 
+        `$${maximos.maxBalance.toFixed(2)}`;
+
+    // Actualizar mes con mayor ganancia
+    document.querySelector('#mes-mayor-ganancia div:nth-child(2)').textContent = 
+        `${maximos.maxGananciaMes}`;
+    document.querySelector('#mes-mayor-ganancia div:nth-child(3)').textContent = 
+        `$${maximos.maxMesGanancia.toFixed(2)}`;
+
+    // Actualizar mes con mayor gasto
+    document.querySelector('#mes-mayor-gasto div:nth-child(2)').textContent = 
+        `${maximos.maxGastoMes}`;
+    document.querySelector('#mes-mayor-gasto div:nth-child(3)').textContent = 
+        `$${maximos.maxMesGasto.toFixed(2)}`;
+}
+
+
+btnReportes.addEventListener('click', () => {
+    cambiarVista(vistaReportes);
+    mostrarReportes();
+});
