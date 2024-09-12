@@ -49,7 +49,11 @@ function mostrarOperaciones() {
                 <div class="text-gray-600 m-auto">
                     ${operacion.fecha}
                 </div>
-                <div class="text-gray-600 font-bold m-auto">
+                <div class="text-gray-600 font-bold m-auto ${
+                  operacion.tipo === "Ganancia"
+                    ? "text-green-600"
+                    : "text-red-600"
+                }">
                     ${operacion.monto}
                 </div>
                 <div class="m-auto">
@@ -303,8 +307,10 @@ function mostrarOperaciones() {
                 <div class="text-gray-600">
                     ${operacion.fecha}
                 </div>
-                <div class="text-gray-600 font-bold">
-                    ${operacion.monto}
+                <div class="text-gray-600 font-bold ${operacion.tipo === "Ganancia"
+                    ? "text-green-600"
+                    : "text-red-600"}">
+                    ${operacion.tipo === "Ganancia" ? "+$"+operacion.monto : "-$"+operacion.monto}
                 </div>
                 <div class="right">
                     <p class="is-fullwidth">
@@ -352,7 +358,6 @@ function mostrarCategorias() {
     );
 
     const contenedorBotones = document.createElement("div");
-
 
     const botonEditar = document.createElement("button");
     botonEditar.textContent = "Editar";
@@ -717,24 +722,28 @@ document
 //REPORTES
 
 // Mostrar vista reportes
-const conReportes = document.getElementById("con-reportes");
-const sinReportes = document.getElementById("sin-reportes");
+let conReportes = document.getElementById("con-reportes");
+let sinReportes = document.getElementById("sin-reportes");
 
-function mostrarReportes() {
-  const operaciones = JSON.parse(localStorage.getItem("operaciones")) || [];
-  if (
-    operaciones.some((operacion) => operacion.tipo === "Ganancia") &&
-    operaciones.some((operacion) => operacion.tipo === "Gasto")
-  ) {
+function hayReportes() {
+  let tieneGanancia = false;
+  let tieneGasto = false;
+
+  operacionesParseadas.forEach((operacion) => {
+    if (operacion.tipo === "Ganancia") {
+      tieneGanancia = true;
+    }
+    if (operacion.tipo === "Gasto") {
+      tieneGasto = true;
+    }
+  });
+
+  if (tieneGanancia && tieneGasto) {
     sinReportes.classList.add("hidden");
     conReportes.classList.remove("hidden");
-  } else {
-    sinReportes.classList.remove("hidden");
-    conReportes.classList.add("hidden");
   }
 }
-
-mostrarReportes();
+hayReportes()
 
 function calcularReportes() {
   const operaciones = JSON.parse(localStorage.getItem("operaciones")) || [];
