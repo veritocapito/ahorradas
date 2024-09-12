@@ -89,7 +89,7 @@ const calcularGanancias = () => {
 
   balanceGanancias.innerHTML = `
         <p class="text-black text-xl py-2">Ganancias</p>
-        <p class="text-green text-xl py-2">+$${ganancias.toFixed(2)}</p>
+        <p class="text-green-600 text-xl py-2">+$${ganancias.toFixed(2)}</p>
     `;
 };
 
@@ -267,10 +267,22 @@ function crearOperacion() {
   vistaBalance.style.display = "flex";
 }
 
+// Agregar operacion solo si están rellenados todos los campos
 btnAgregarOperacion.addEventListener("click", function (event) {
-  event.stopPropagation();
-  event.preventDefault();
-  crearOperacion();
+  if (
+    descripcionNuevaOperacion.value !== "" &&
+    montoNuevaOperacion.value !== "0" &&
+    (tipoNuevaOperacion.value === "Ganancia" || tipoNuevaOperacion.value === "Gasto") &&
+    categoriaNuevaOperacion.value !== "Seleccione una opcion" &&
+    fechaNuevaOperacion.value !== ""
+  ) {
+    event.stopPropagation();
+    event.preventDefault();
+    crearOperacion();
+  } else {
+    event.stopPropagation();
+    event.preventDefault();
+  }
 });
 
 // Mostrar Operaciones
@@ -298,7 +310,7 @@ function mostrarOperaciones() {
       const nuevaOperacion = document.createElement("div");
       nuevaOperacion.innerHTML = `
             <div class="flex justify-between items-center p-2 mt-6">
-                 <div class="w-1/4 text-gray-800 font-bold">
+                 <div class="w-1/4 text-gray-800 font-bold capitalize">
                     <h3 class="">${operacion.descripcion}</h3>
                 </div>
                 <div class="text-sm bg-teal-100 rounded text-sm text-teal-900 py-1 px-2">
@@ -307,10 +319,16 @@ function mostrarOperaciones() {
                 <div class="text-gray-600">
                     ${operacion.fecha}
                 </div>
-                <div class="text-gray-600 font-bold ${operacion.tipo === "Ganancia"
+                <div class="text-gray-600 font-bold ${
+                  operacion.tipo === "Ganancia"
                     ? "text-green-600"
-                    : "text-red-600"}">
-                    ${operacion.tipo === "Ganancia" ? "+$"+operacion.monto : "-$"+operacion.monto}
+                    : "text-red-600"
+                }">
+                    ${
+                      operacion.tipo === "Ganancia"
+                        ? "+$" + operacion.monto
+                        : "-$" + operacion.monto
+                    }
                 </div>
                 <div class="right">
                     <p class="is-fullwidth">
@@ -743,7 +761,7 @@ function hayReportes() {
     conReportes.classList.remove("hidden");
   }
 }
-hayReportes()
+hayReportes();
 
 function calcularReportes() {
   const operaciones = JSON.parse(localStorage.getItem("operaciones")) || [];

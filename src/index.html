@@ -140,13 +140,12 @@
         <div>
             <div class="flex flex-col">
                 <label for="descripcion-nueva-operacion" class="text-black text-lg font-bold mb-2">Descripción</label>
-                <input type="text" name="descripcion-nueva-operacion" class="border-gray-200 border p-2 mb-3"
-                    id="descripcion-nueva-operacion">
+                <input id="descripcion-nueva-operacion" type="text" name="descripcion-nueva-operacion" class="border-gray-200 border p-2 mb-3" value="">
             </div>
             <div class="flex flex-col">
                 <label for="monto-nueva-operacion" class="text-black text-lg font-bold mb-2">Monto</label>
-                <input type="text" name="monto-nueva-operacion" class="border-gray-200 border p-2 mb-3"
-                    id="monto-nueva-operacion" placeholder="0">
+                <input type="number" name="monto-nueva-operacion" class="border-gray-200 border p-2 mb-3"
+                    id="monto-nueva-operacion" placeholder="0" value="0">
             </div>
             <div class="flex flex-col">
                 <label for="tipo" class="text-black text-lg font-bold mb-2">Tipo</label>
@@ -159,7 +158,7 @@
             <div class="flex flex-col">
                 <label for="categoria-nueva-operacion" class="text-black text-lg font-bold mb-2">Categoría</label>
                 <select name="categoria" id="categoria-nueva-operacion" class="border-gray-200 border p-2 mb-3">
-                    <option selected disabled>Seleccione una opcion</option>
+                    <option selected disabled value="Seleccione una opcion">Seleccione una opcion</option>
                     <!--                         <option value="Comida">Comida</option>
                         <option value="Servicios">Servicios</option>
                         <option value="Salidas">Salidas</option>
@@ -171,7 +170,7 @@
             <div class="flex flex-col">
                 <label for="fecha-nueva-operacion" class="text-black text-lg font-bold mb-2">Fecha</label>
                 <input type="date" name="fecha-nueva-operacion" id="fecha-nueva-operacion"
-                    class="border-gray-200 border p-2 mb-3" />
+                    class="border-gray-200 border p-2 mb-3" value=""/>
             </div>
             <div class="flex justify-end mt-6 gap-2">
                 <button class="bg-bgwhite hover:bg-bgwhite text-black py-2 px-4 text-lg rounded-md lg:px-4 lg:py-2"
@@ -273,12 +272,12 @@
             <div class="mt-10 text-gray-600">
                 <div class="font-medium flex justify-evenly items-center" id="cat-mayor-ganancia">
                     <div class="w-1/2">Categoría con mayor ganancia</div>
-                    <div class="bg-teal-100 text-teal-800 py-1 rounded w-1/6 text-center"></div>
+                    <div class="text-sm font-normal bg-teal-100 text-teal-900 py-1 rounded w-1/6 text-center"></div>
                     <div class="w-1/4 text-center"></div>
                 </div>
                 <div class="font-medium flex justify-evenly items-center mt-8" id="cat-mayor-gasto">
                     <div class="w-1/2">Categoría con mayor gasto</div>
-                    <div class="bg-teal-100 text-teal-800 py-1 rounded w-1/6 text-center"></div>
+                    <div class="text-sm font-normal bg-teal-100 text-teal-900 py-1 rounded w-1/6 text-center"></div>
                     <div class="w-1/4 text-center"></div>
                 </div>
                 <div class="font-medium flex justify-evenly items-center mt-8" id="cat-mayor-balance">
