@@ -173,7 +173,7 @@ btnBalance.addEventListener('click', () => cambiarVista(vistaBalance));
 btnCategorias.addEventListener('click', () => cambiarVista(vistaCategorias));
 btnReportes.addEventListener('click', () => cambiarVista(vistaReportes));
 btnCancelarOperacion.addEventListener('click', () => cambiarVista(vistaBalance));
-
+btnNuevaOperacion.addEventListener('click', () => cambiarVista(vistaNuevaOperacion));
 
 // Boton Filtros
 const btnFiltros = document.getElementById('btn-filtros');
@@ -484,11 +484,193 @@ agregarCategoriaBtn.addEventListener('click', () => {
 });
 
 
+
+
 //FILTROS
+function cargarCategorias(categorias) {
+    const categoriasNuevaOperacion = document.querySelector('#categoria-nueva-operacion');
+    const categoriasFiltro = document.querySelector('#filtro-categoria'); // Agregar al filtro también
+
+    categoriasFiltro.innerHTML = '<option value="">Todas las categorías</option>'; // Limpiar las opciones previas
+
+    categorias.forEach(categoria => {
+        let nuevaCategoria = document.createElement('option');
+        nuevaCategoria.value = categoria;
+        nuevaCategoria.textContent = categoria;
+        categoriasNuevaOperacion.appendChild(nuevaCategoria);
+
+        let option = document.createElement('option');
+        option.value = categoria;
+        option.textContent = categoria;
+        categoriasFiltro.appendChild(option);
+    });
+
+    mostrarCategorias();
+}
 
 
+function aplicarFiltros() {
+    const btnFiltros = document.getElementById('btn-aplicar-filtros');
+
+    // Si ya están aplicados los filtros, se limpian
+    if (filtrosAplicados) {
+        limpiarFiltros();
+        btnFiltros.textContent = 'Aplicar filtros';
+        btnFiltros.classList.remove('bg-red-500');
+        btnFiltros.classList.add('bg-teal');
+        filtrosAplicados = false;
+        return;
+    }
+
+    // Obtener los valores seleccionados en los filtros
+    const categoriaSeleccionada = document.getElementById('filtro-categoria').value;
+    const tipoSeleccionado = document.getElementById('filtro-tipo').value;
+    const fechaDesde = document.getElementById('filtro-fecha-desde').value;
+    const fechaHasta = document.getElementById('filtro-fecha-hasta').value;
+    const ordenSeleccionado = document.getElementById('filtro-orden').value;
+
+    const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+
+    // Filtrar las operaciones basadas en las selecciones
+    const operacionesFiltradas = operaciones.filter(operacion => {
+        let cumpleCategoria = true, cumpleTipo = true, cumpleFechaDesde = true, cumpleFechaHasta = true;
+
+        // Si hay una categoría seleccionada que no sea "Todas", filtramos por esa categoría
+        if (categoriaSeleccionada !== 'Todas') {
+            cumpleCategoria = operacion.categoria === categoriaSeleccionada;
+        }
+
+        // Si hay un tipo seleccionado que no sea "Todos", filtramos por ese tipo
+        if (tipoSeleccionado !== 'Todos') {
+            cumpleTipo = operacion.tipo === tipoSeleccionado;
+        }
+
+        // Filtrar por fechas
+        if (fechaDesde) {
+            cumpleFechaDesde = new Date(operacion.fecha) >= new Date(fechaDesde);
+        }
+        if (fechaHasta) {
+            cumpleFechaHasta = new Date(operacion.fecha) <= new Date(fechaHasta);
+        }
+
+        return cumpleCategoria && cumpleTipo && cumpleFechaDesde && cumpleFechaHasta;
+    });
+
+    // Aplicar el orden a las operaciones filtradas
+    const operacionesOrdenadas = ordenarOperaciones(operacionesFiltradas, ordenSeleccionado);
+
+    // Mostrar las operaciones filtradas y ordenadas
+    mostrarOperacionesFiltradas(operacionesOrdenadas);
+
+    // Cambiar el botón a "Limpiar filtros"
+    btnFiltros.textContent = 'Limpiar filtros';
+    btnFiltros.classList.remove('bg-teal');
+    btnFiltros.classList.add('bg-red-500');
+    filtrosAplicados = true; // Marcamos que los filtros están aplicados
+}
+
+
+function ordenarOperaciones(operaciones, criterio) {
+    switch (criterio) {
+        case 'Más reciente':
+            return operaciones.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+        case 'Menos reciente':
+            return operaciones.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+        case 'Mayor monto':
+            return operaciones.sort((a, b) => parseFloat(b.monto) - parseFloat(a.monto));
+        case 'Menor monto':
+            return operaciones.sort((a, b) => parseFloat(a.monto) - parseFloat(b.monto));
+        case 'A/Z':
+            return operaciones.sort((a, b) => a.descripcion.localeCompare(b.descripcion));
+        case 'Z/A':
+            return operaciones.sort((a, b) => b.descripcion.localeCompare(a.descripcion));
+        default:
+            return operaciones; // Si no se selecciona un criterio, no se ordena.
+    }
+}
+
+
+function limpiarFiltros() {
+    // Restablecer valores de los filtros
+    document.getElementById('filtro-tipo').value = 'Todos';
+    document.getElementById('filtro-categoria').value = 'Todas';
+    document.getElementById('filtro-fecha-desde').value = '';
+    document.getElementById('filtro-fecha-hasta').value = '';
+    document.getElementById('filtro-orden').value = 'Más reciente';
+
+    // Mostrar todas las operaciones
+    mostrarOperaciones();
+}
+
+
+
+function mostrarOperacionesFiltradas(operaciones) {
+    const conOperaciones = document.querySelector('#con-operaciones');
+    const sinOperaciones = document.querySelector('#sin-operaciones');
+
+    conOperaciones.innerHTML = ''; // Limpiar las operaciones anteriores
+
+    if (operaciones.length > 0) {
+        sinOperaciones.style.display = 'none';
+        conOperaciones.style.display = 'flex';
+        operaciones.forEach((operacion, index) => {
+            const nuevaOperacion = document.createElement('div');
+            nuevaOperacion.innerHTML = `
+            <div class="flex justify-between items-center p-2 mt-10">
+                <div class="w-1/4 text-gray-600">
+                    <h3 class="">${operacion.descripcion}</h3>
+                </div>
+                <div class="bg-teal-100 rounded text-sm text-teal-800 py-1 px-2 m-auto">
+                    <span class="tag">${operacion.categoria}</span>
+                </div>
+                <div class="text-gray-600 m-auto">
+                    ${operacion.fecha}
+                </div>
+                <div class="text-gray-600 font-bold m-auto">
+                    ${operacion.monto}
+                </div>
+                <div class="m-auto">
+                    <p class="is-fullwidth">
+                        <a href="#" class="bg-blue-500 text-white py-1 px-2 rounded" onclick="editarOperacion(${index})">Editar</a>
+                        <a href="#" class="bg-red-500 text-white py-1 px-2 mr-2 rounded" onclick="eliminarOperacion(${index})">Eliminar</a>
+                    </p>
+                </div>
+            </div>`;
+
+            conOperaciones.appendChild(nuevaOperacion);
+        });
+    } else {
+        sinOperaciones.style.display = 'block';
+    }
+}
+
+
+document.getElementById('btn-aplicar-filtros').addEventListener('click', aplicarFiltros);
+
+
+//-----------------------------
 
 //REPORTES
+
+// Mostrar vista reportes
+const conReportes = document.getElementById("con-reportes");
+const sinReportes = document.getElementById("sin-reportes");
+
+function mostrarReportes() {
+    const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+    if (
+        operaciones.some((operacion) => operacion.tipo === "Ganancia") &&
+        operaciones.some((operacion) => operacion.tipo === "Gasto")
+    ) {
+        sinReportes.classList.add("hidden");
+        conReportes.classList.remove("hidden");
+    } else {
+        sinReportes.classList.remove("hidden");
+        conReportes.classList.add("hidden");
+    }
+}
+
+mostrarReportes();
 
 function calcularReportes() {
     const operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
@@ -508,8 +690,8 @@ function calcularReportes() {
         } else if (operacion.tipo === 'Gasto') {
             categorias[operacion.categoria].gasto += parseFloat(operacion.monto);
         }
-        categorias[operacion.categoria].balance += (operacion.tipo === 'Ganancia') 
-            ? parseFloat(operacion.monto) 
+        categorias[operacion.categoria].balance += (operacion.tipo === 'Ganancia')
+            ? parseFloat(operacion.monto)
             : -parseFloat(operacion.monto);
 
         // Agrupar por mes
@@ -530,7 +712,7 @@ function calcularReportes() {
 function obtenerMaximos(categorias, meses) {
     let maxGananciaCategoria = '', maxGastoCategoria = '', maxBalanceCategoria = '';
     let maxGanancia = 0, maxGasto = 0, maxBalance = -Infinity;
-    
+
     // Calcular las categorías con mayores valores
     for (const categoria in categorias) {
         if (categorias[categoria].ganancia > maxGanancia) {
@@ -577,14 +759,14 @@ function mostrarTotalesPorCategorias(categorias) {
     for (const categoria in categorias) {
         const categoriaRow = document.createElement('div');
         categoriaRow.classList.add('flex', 'justify-between', 'mt-6');
-        
+
         categoriaRow.innerHTML = `
             <div class="w-1/4 text-gray-600">${categoria}</div>
             <div class="m-auto text-green-600 font-bold">$${categorias[categoria].ganancia.toFixed(2)}</div>
             <div class="m-auto text-red-600 font-bold">$${categorias[categoria].gasto.toFixed(2)}</div>
             <div class="m-auto text-black font-bold">$${categorias[categoria].balance.toFixed(2)}</div>
         `;
-        
+
         contenedorCategorias.appendChild(categoriaRow);
     }
 }
