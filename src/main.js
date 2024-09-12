@@ -567,6 +567,7 @@ function cargarCategorias(categorias) {
   const categoriasFiltro = document.querySelector("#filtro-categoria"); // Agregar al filtro también
 
   categoriasFiltro.innerHTML = '<option value="">Todas las categorías</option>'; // Limpiar las opciones previas
+  categoriasNuevaOperacion.innerHTML = '';
 
   categorias.forEach((categoria) => {
     let nuevaCategoria = document.createElement("option");
