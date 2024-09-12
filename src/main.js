@@ -54,8 +54,8 @@ function mostrarOperaciones() {
                 </div>
                 <div class="m-auto">
                     <p class="is-fullwidth">
-                        <a href="#" class="text-blue rounded mx-0 text-sm">Editar</a>
-                        <a href="#" class="text-blue rounded mx-0 text-sm">Eliminar</a>
+                        <a href="#" class="text-sm text-blue-500 text-white py-1 px-2 rounded">Editar</a>
+                        <a href="#" class="text-sm text-red-600 text-white py-1 px-2 rounded">Eliminar</a>
                     </p>
                 </div>
             </div>`;
@@ -293,7 +293,7 @@ function mostrarOperaciones() {
 
       const nuevaOperacion = document.createElement("div");
       nuevaOperacion.innerHTML = `
-            <div class="flex justify-between items-center p-2 mt-10">
+            <div class="flex justify-between items-center p-2 mt-6">
                  <div class="w-1/4 text-gray-800 font-bold">
                     <h3 class="">${operacion.descripcion}</h3>
                 </div>
@@ -318,6 +318,7 @@ function mostrarOperaciones() {
     });
   } else {
     sinOperaciones.style.display = "block";
+    conOperaciones.innerHTML = ``;
   }
 }
 
@@ -335,20 +336,29 @@ function mostrarCategorias() {
       "flex",
       "justify-between",
       "items-center",
-      "border",
       "p-2",
       "mb-2"
     );
 
     const nombreCategoria = document.createElement("span");
     nombreCategoria.textContent = categoria;
+    nombreCategoria.classList.add(
+      "text-sm",
+      "bg-teal-100",
+      "rounded",
+      "text-teal-900",
+      "py-1",
+      "px-2"
+    );
 
     const contenedorBotones = document.createElement("div");
+
 
     const botonEditar = document.createElement("button");
     botonEditar.textContent = "Editar";
     botonEditar.classList.add(
-      "bg-blue-500",
+      "text-blue-500",
+      "text-sm",
       "text-white",
       "py-1",
       "px-2",
@@ -360,7 +370,8 @@ function mostrarCategorias() {
     const botonEliminar = document.createElement("button");
     botonEliminar.textContent = "Eliminar";
     botonEliminar.classList.add(
-      "bg-red-500",
+      "text-red-500",
+      "text-sm",
       "text-white",
       "py-1",
       "px-2",
