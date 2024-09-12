@@ -484,6 +484,10 @@ agregarCategoriaBtn.addEventListener('click', () => {
 });
 
 
+//FILTROS
+
+
+
 //REPORTES
 
 function calcularReportes() {
@@ -566,43 +570,80 @@ function obtenerMaximos(categorias, meses) {
 }
 
 
+function mostrarTotalesPorCategorias(categorias) {
+    const contenedorCategorias = document.querySelector('#totales-categorias');
+    contenedorCategorias.innerHTML = ''; // Limpiar el contenido anterior
+
+    for (const categoria in categorias) {
+        const categoriaRow = document.createElement('div');
+        categoriaRow.classList.add('flex', 'justify-between', 'mt-6');
+        
+        categoriaRow.innerHTML = `
+            <div class="w-1/4 text-gray-600">${categoria}</div>
+            <div class="m-auto text-green-600 font-bold">$${categorias[categoria].ganancia.toFixed(2)}</div>
+            <div class="m-auto text-red-600 font-bold">$${categorias[categoria].gasto.toFixed(2)}</div>
+            <div class="m-auto text-black font-bold">$${categorias[categoria].balance.toFixed(2)}</div>
+        `;
+        
+        contenedorCategorias.appendChild(categoriaRow);
+    }
+}
+
+
+function mostrarTotalesPorMes(meses) {
+    const contenedorMeses = document.querySelector('#totales-meses');
+    contenedorMeses.innerHTML = ''; // Limpiar el contenido anterior
+
+    for (const mes in meses) {
+        const mesRow = document.createElement('div');
+        mesRow.classList.add('flex', 'justify-between', 'mt-6');
+
+        mesRow.innerHTML = `
+            <div class="w-1/4 text-gray-600">${mes}</div>
+            <div class="m-auto text-green-600 font-bold">$${meses[mes].ganancia.toFixed(2)}</div>
+            <div class="m-auto text-red-600 font-bold">$${meses[mes].gasto.toFixed(2)}</div>
+            <div class="m-auto text-black font-bold">$${(meses[mes].ganancia - meses[mes].gasto).toFixed(2)}</div>
+        `;
+
+        contenedorMeses.appendChild(mesRow);
+    }
+}
+
+
 function mostrarReportes() {
     const { categorias, meses } = calcularReportes();
     const maximos = obtenerMaximos(categorias, meses);
 
-    // Actualizar categoría con mayor ganancia
-    document.querySelector('#cat-mayor-ganancia div:nth-child(2)').textContent = 
-        `${maximos.maxGananciaCategoria}`;
-    document.querySelector('#cat-mayor-ganancia div:nth-child(3)').textContent = 
-        `$${maximos.maxGanancia.toFixed(2)}`;
+    // Mostrar totales por categorías
+    mostrarTotalesPorCategorias(categorias);
 
-    // Actualizar categoría con mayor gasto
-    document.querySelector('#cat-mayor-gasto div:nth-child(2)').textContent = 
-        `${maximos.maxGastoCategoria}`;
-    document.querySelector('#cat-mayor-gasto div:nth-child(3)').textContent = 
-        `$${maximos.maxGasto.toFixed(2)}`;
+    // Mostrar totales por mes
+    mostrarTotalesPorMes(meses);
 
-    // Actualizar categoría con mayor balance
-    document.querySelector('#cat-mayor-balance div:nth-child(2)').textContent = 
-        `${maximos.maxBalanceCategoria}`;
-    document.querySelector('#cat-mayor-balance div:nth-child(3)').textContent = 
-        `$${maximos.maxBalance.toFixed(2)}`;
+    // Actualizar categoría con mayor ganancia, gasto, balance
+    document.querySelector('#cat-mayor-ganancia div:nth-child(2)').textContent = `${maximos.maxGananciaCategoria}`;
+    document.querySelector('#cat-mayor-ganancia div:nth-child(3)').textContent = `$${maximos.maxGanancia.toFixed(2)}`;
 
-    // Actualizar mes con mayor ganancia
-    document.querySelector('#mes-mayor-ganancia div:nth-child(2)').textContent = 
-        `${maximos.maxGananciaMes}`;
-    document.querySelector('#mes-mayor-ganancia div:nth-child(3)').textContent = 
-        `$${maximos.maxMesGanancia.toFixed(2)}`;
+    document.querySelector('#cat-mayor-gasto div:nth-child(2)').textContent = `${maximos.maxGastoCategoria}`;
+    document.querySelector('#cat-mayor-gasto div:nth-child(3)').textContent = `$${maximos.maxGasto.toFixed(2)}`;
 
-    // Actualizar mes con mayor gasto
-    document.querySelector('#mes-mayor-gasto div:nth-child(2)').textContent = 
-        `${maximos.maxGastoMes}`;
-    document.querySelector('#mes-mayor-gasto div:nth-child(3)').textContent = 
-        `$${maximos.maxMesGasto.toFixed(2)}`;
+    document.querySelector('#cat-mayor-balance div:nth-child(2)').textContent = `${maximos.maxBalanceCategoria}`;
+    document.querySelector('#cat-mayor-balance div:nth-child(3)').textContent = `$${maximos.maxBalance.toFixed(2)}`;
+
+    // Actualizar mes con mayor ganancia y gasto
+    document.querySelector('#mes-mayor-ganancia div:nth-child(2)').textContent = `${maximos.maxGananciaMes}`;
+    document.querySelector('#mes-mayor-ganancia div:nth-child(3)').textContent = `$${maximos.maxMesGanancia.toFixed(2)}`;
+
+    document.querySelector('#mes-mayor-gasto div:nth-child(2)').textContent = `${maximos.maxGastoMes}`;
+    document.querySelector('#mes-mayor-gasto div:nth-child(3)').textContent = `$${maximos.maxMesGasto.toFixed(2)}`;
 }
+
 
 
 btnReportes.addEventListener('click', () => {
     cambiarVista(vistaReportes);
     mostrarReportes();
 });
+
+
+//-----------------------------
