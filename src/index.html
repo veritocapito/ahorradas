@@ -2,10 +2,21 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AhorrADAs">
+    <meta name="keywords" content="ahorro, ahorrar, finanzas, balance familiar, control de gastos, ingresos personales">
+    <meta name="author" content="Nerea Battauz & Veronica Capobianco">
+    <!-- Metadatos para redes sociales -->
+    <meta property="og:title" content="AhorrADAs">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ahorradas-psi.vercel.app/">
+    <meta property="og:image" content="https://i.postimg.cc/wjNkdmr5/ahorradas.png">
+    <meta property="og:description" content="AhorrADAs: app para controlar ingresos y gastos personales, con estadísticas y filtros, adaptable a cada necesidad.">
+    <meta property="og:site_name" content="AhorrADAs">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="./output.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="./src/assets/signo.png" type="image/x-icon">
+    <link href="./output.css" rel="stylesheet" >
     <title>AhorrADAs</title>
 </head>
 
@@ -77,12 +88,12 @@
                     <div class="flex flex-col">
                         <label for="filtro-fecha-desde" class="text-black text-lg font-bold mb-2">Desde</label>
                         <input type="date" name="desde" id="filtro-fecha-desde"
-                            class="border-gray-200 border p-2 mb-3" />
+                            class="border-gray-200 border p-2 mb-3" >
                     </div>
                     <div class="flex flex-col">
                         <label for="filtro-fecha-hasta" class="text-black text-lg font-bold mb-2">Hasta</label>
                         <input type="date" name="hasta" id="filtro-fecha-hasta"
-                            class="border-gray-200 border p-2 mb-3" />
+                            class="border-gray-200 border p-2 mb-3" >
                     </div>
                     <div class="flex flex-col">
                         <label for="filtro-orden" class="text-black text-lg font-bold mb-2">Ordenar por</label>
@@ -125,7 +136,7 @@
                     </div>
                 </div>
                 <div id="sin-operaciones">
-                    <img src="./assets/img-ahorrar.png" class="m-auto"></img>
+                    <img src="./assets/img-ahorrar.png" alt="Imagen de ahorro" class="m-auto">
                     <h2 class="text-black font-medium text-center text-2xl mb-6">Sin resultados</h2>
                     <p class="text-black text-center text-lg mb-12">Cambia los filtros o agrega operaciones</p>
                 </div>
@@ -170,7 +181,7 @@
             <div class="flex flex-col">
                 <label for="fecha-nueva-operacion" class="text-black text-lg font-bold mb-2">Fecha</label>
                 <input type="date" name="fecha-nueva-operacion" id="fecha-nueva-operacion"
-                    class="border-gray-200 border p-2 mb-3" value="" />
+                    class="border-gray-200 border p-2 mb-3" value="" >
             </div>
             <div class="flex justify-end mt-6 gap-2">
                 <button class="bg-bgwhite hover:bg-bgwhite text-black py-2 px-4 text-lg rounded-md lg:px-4 lg:py-2"
@@ -224,7 +235,7 @@
             <div class="flex flex-col">
                 <label for="fecha-operacion" class="text-black text-lg font-bold mb-2">Fecha</label>
                 <input type="date" name="fecha-operacion" id="fecha-operacion"
-                    class="border-gray-200 border p-2 mb-3" />
+                    class="border-gray-200 border p-2 mb-3">
             </div>
             <div class="flex justify-end mt-6 gap-2">
                 <button class="bg-bgwhite hover:bg-bgwhite text-black py-2 px-4 text-lg rounded-md lg:px-4 lg:py-2"
@@ -320,10 +331,10 @@
             <!-- aca se van a mostrar los reportes con JS, segun se vayan agregando las operaciones -->
         </div>
     </section>
-    </div>
-</body>
 
-<script src="https://kit.fontawesome.com/aa9529ca56.js" crossorigin="anonymous"></script>
-<script src="./main.js"></script>
+    <script src="https://kit.fontawesome.com/aa9529ca56.js" crossorigin="anonymous"></script>
+    <script src="./main.js"></script>
+
+</body>
 
 </html>
