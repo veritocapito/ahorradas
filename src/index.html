@@ -60,30 +60,32 @@
                 </div>
                 <div id="vista-filtros">
                     <div class="flex flex-col">
-                        <label for="tipo" class="text-black text-lg font-bold mb-2">Tipo</label>
+                        <label for="filtro-tipo" class="text-black text-lg font-bold mb-2">Tipo</label>
                         <select name="tipo" id="filtro-tipo" class="border-gray-200 border p-2 mb-3">
-                            <option value="Todos">Seleccionar</option>
+                            <option value="Seleccionar">Seleccionar</option>
                             <option value="Gasto">Gasto</option>
                             <option value="Ganancia">Ganancia</option>
                         </select>
                     </div>
                     <div class="flex flex-col">
-                        <label for="categorias-filtro" class="text-black text-lg font-bold mb-2">Categoría</label>
+                        <label for="filtro-categoria" class="text-black text-lg font-bold mb-2">Categoría</label>
                         <select name="categoria" id="filtro-categoria" class="border-gray-200 border p-2 mb-3">
-                            <option value="Todas">Todas</option>
+                            <option value="Seleccionar">Seleccionar</option>
                             <!-- Categorías llenadas dinámicamente -->
                         </select>
                     </div>
                     <div class="flex flex-col">
-                        <label for="desde" class="text-black text-lg font-bold mb-2">Desde</label>
-                        <input type="date" name="desde" id="filtro-fecha-desde" class="border-gray-200 border p-2 mb-3" />
+                        <label for="filtro-fecha-desde" class="text-black text-lg font-bold mb-2">Desde</label>
+                        <input type="date" name="desde" id="filtro-fecha-desde"
+                            class="border-gray-200 border p-2 mb-3" />
                     </div>
                     <div class="flex flex-col">
-                        <label for="hasta" class="text-black text-lg font-bold mb-2">Hasta</label>
-                        <input type="date" name="hasta" id="filtro-fecha-hasta" class="border-gray-200 border p-2 mb-3" />
+                        <label for="filtro-fecha-hasta" class="text-black text-lg font-bold mb-2">Hasta</label>
+                        <input type="date" name="hasta" id="filtro-fecha-hasta"
+                            class="border-gray-200 border p-2 mb-3" />
                     </div>
                     <div class="flex flex-col">
-                        <label for="orden" class="text-black text-lg font-bold mb-2">Ordenar por</label>
+                        <label for="filtro-orden" class="text-black text-lg font-bold mb-2">Ordenar por</label>
                         <select name="orden" id="filtro-orden" class="border-gray-200 border p-2 mb-3">
                             <option value="Más reciente">Más reciente</option>
                             <option value="Menos reciente">Menos reciente</option>
@@ -93,15 +95,16 @@
                             <option value="Z/A">Z/A</option>
                         </select>
                     </div>
-                
+
                     <!-- Botones para aplicar y limpiar filtros -->
                     <div class="flex gap-2">
-                        <button id="btn-aplicar-filtros" class="bg-teal hover:bg-dark-teal text-white py-2 px-4 text-lg rounded-md">
+                        <button id="btn-aplicar-filtros"
+                            class="bg-teal hover:bg-dark-teal text-white py-2 px-4 text-lg rounded-md">
                             Aplicar filtros
                         </button>
                     </div>
                 </div>
-                
+
             </article>
         </aside>
         <main class="flex flex-col items-center lg:w-3/4">
@@ -134,13 +137,15 @@
     </div>
 
     <!-- VISTA NUEVA OPERACION -->
-    <section class="lg:w-1/2 justify-center m-auto bg-white p-6 w-11/12 mt-14 mb-14 rounded-md drop-shadow-lg hidden flex-col"
+    <section
+        class="lg:w-1/2 justify-center m-auto bg-white p-6 w-11/12 mt-14 mb-14 rounded-md drop-shadow-lg hidden flex-col"
         id="vista-nueva-operacion">
         <h2 class="text-black font-bold text-4xl mb-10">Nueva Operación</h2>
         <div>
             <div class="flex flex-col">
                 <label for="descripcion-nueva-operacion" class="text-black text-lg font-bold mb-2">Descripción</label>
-                <input id="descripcion-nueva-operacion" type="text" name="descripcion-nueva-operacion" class="border-gray-200 border p-2 mb-3" value="">
+                <input id="descripcion-nueva-operacion" type="text" name="descripcion-nueva-operacion"
+                    class="border-gray-200 border p-2 mb-3" value="">
             </div>
             <div class="flex flex-col">
                 <label for="monto-nueva-operacion" class="text-black text-lg font-bold mb-2">Monto</label>
@@ -148,9 +153,9 @@
                     id="monto-nueva-operacion" placeholder="0" value="0">
             </div>
             <div class="flex flex-col">
-                <label for="tipo" class="text-black text-lg font-bold mb-2">Tipo</label>
+                <label for="tipo-nueva-operacion" class="text-black text-lg font-bold mb-2">Tipo</label>
                 <select name="tipo-nueva-operacion" id="tipo-nueva-operacion" class="border-gray-200 border p-2 mb-3">
-                    <option selected disabled value="Seleccione una opcion">Seleccione una opcion</option>
+                    <option value="Seleccione una opción">Seleccione una opción</option>
                     <option value="Gasto">Gasto</option>
                     <option value="Ganancia">Ganancia</option>
                 </select>
@@ -158,19 +163,14 @@
             <div class="flex flex-col">
                 <label for="categoria-nueva-operacion" class="text-black text-lg font-bold mb-2">Categoría</label>
                 <select name="categoria" id="categoria-nueva-operacion" class="border-gray-200 border p-2 mb-3">
-                    <option selected disabled value="Seleccione una opcion">Seleccione una opcion</option>
-                    <!--                         <option value="Comida">Comida</option>
-                        <option value="Servicios">Servicios</option>
-                        <option value="Salidas">Salidas</option>
-                        <option value="Educación">Educación</option>
-                        <option value="Transporte">Transporte</option>
-                        <option value="Trabajo">Trabajo</option> -->
+                    <option value="Seleccione una opción">Seleccione una opción</option>
+                    <!-- Categorías dinámicas -->
                 </select>
             </div>
             <div class="flex flex-col">
                 <label for="fecha-nueva-operacion" class="text-black text-lg font-bold mb-2">Fecha</label>
                 <input type="date" name="fecha-nueva-operacion" id="fecha-nueva-operacion"
-                    class="border-gray-200 border p-2 mb-3" value=""/>
+                    class="border-gray-200 border p-2 mb-3" value="" />
             </div>
             <div class="flex justify-end mt-6 gap-2">
                 <button class="bg-bgwhite hover:bg-bgwhite text-black py-2 px-4 text-lg rounded-md lg:px-4 lg:py-2"
@@ -184,6 +184,7 @@
             </div>
         </div>
     </section>
+
 
     <!-- VISTA EDITAR OPERACION -->
     <section class="lg:w-1/2 justify-center m-auto bg-white p-6 w-11/12 mt-14 mb-14 rounded-md drop-shadow-lg hidden"
@@ -201,7 +202,7 @@
                     placeholder="0">
             </div>
             <div class="flex flex-col">
-                <label for="tipo" class="text-black text-lg font-bold mb-2">Tipo</label>
+                <label for="tipo-operacion" class="text-black text-lg font-bold mb-2">Tipo</label>
                 <select name="tipo-operacion" id="tipo-operacion" class="border-gray-200 border p-2 mb-3">
                     <option selected disabled>Seleccione una opcion</option>
                     <option value="Gasto">Gasto</option>
@@ -309,15 +310,15 @@
             </div>
 
         </div>
-            <!-- mensaje cuando no hay operaciones -->
-            <div class="flex-col items-center max-h-full" id="sin-reportes">
-                <img src="./assets/chart.svg" alt="" class="m-auto w-1/2 my-12">
-                <h2 class="text-black font-medium text-center text-2xl mb-6">Operaciones insuficientes</h2>
-                <p class="text-black text-center text-lg mb-12">Prueba agregando más operaciones</p>
-            </div>
-            <div>
-                <!-- aca se van a mostrar los reportes con JS, segun se vayan agregando las operaciones -->
-            </div>
+        <!-- mensaje cuando no hay operaciones -->
+        <div class="flex-col items-center max-h-full" id="sin-reportes">
+            <img src="./assets/chart.svg" alt="" class="m-auto w-1/2 my-12">
+            <h2 class="text-black font-medium text-center text-2xl mb-6">Operaciones insuficientes</h2>
+            <p class="text-black text-center text-lg mb-12">Prueba agregando más operaciones</p>
+        </div>
+        <div>
+            <!-- aca se van a mostrar los reportes con JS, segun se vayan agregando las operaciones -->
+        </div>
     </section>
     </div>
 </body>
