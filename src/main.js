@@ -623,7 +623,7 @@ function aplicarFiltros() {
         limpiarFiltros();
         btnFiltros.textContent = 'Aplicar filtros';
         btnFiltros.classList.remove('bg-red-500');
-        btnFiltros.classList.add('bg-teal');
+        btnFiltros.classList.add('bg-none');
         filtrosAplicados = false; // Marcamos que los filtros han sido limpiados
         return;
     }
@@ -670,8 +670,7 @@ function aplicarFiltros() {
 
     // Cambiar el botón a "Limpiar filtros"
     btnFiltros.textContent = 'Limpiar filtros';
-    btnFiltros.classList.remove('bg-teal');
-    btnFiltros.classList.add('bg-red-500');
+    //btnFiltros.classList.add('hover:bg-red-600');
     filtrosAplicados = true; // Marcamos que los filtros están aplicados
 }
 
@@ -703,8 +702,7 @@ function limpiarFiltros() {
     document.getElementById("filtro-orden").value = "Más reciente";
 
     // Reestablecer el botón a "Aplicar filtros"
-    btnFiltros.textContent = 'Aplicar filtros';
-    btnFiltros.classList.add('bg-teal');
+    btnFiltros.classList.add('bg-none');
     btnFiltros.classList.remove('bg-red-500');
     filtrosAplicados = false; // Marcamos que los filtros están aplicados
 
@@ -721,26 +719,43 @@ function mostrarOperacionesFiltradas(operaciones) {
     if (operaciones.length > 0) {
         sinOperaciones.style.display = "none";
         conOperaciones.style.display = "flex";
+
+        conOperaciones.innerHTML = `<div class="flex justify-between mt-8">
+                            <div class="font-bold w-1/4">Descripción</div>
+                            <div class="font-bold">Categoría</div>
+                            <div class="font-bold">Fecha</div>
+                            <div class="font-bold">Monto</div>
+                            <div class="font-bold mr-10">Acciones</div>
+                        </div>`
+
         operaciones.forEach((operacion, index) => {
             const nuevaOperacion = document.createElement("div");
             nuevaOperacion.innerHTML = `
-            <div class="flex justify-between items-center p-2 mt-10">
-                <div class="w-1/4 text-gray-600">
+            <div class="flex justify-between items-center p-2 mt-6">
+                <div class="w-1/4 text-gray-800 font-bold capitalize">
                     <h3 class="">${operacion.descripcion}</h3>
                 </div>
-                <div class="bg-teal-100 rounded text-sm text-teal-800 py-1 px-2 m-auto">
+                <div class="text-sm bg-teal-100 rounded text-sm text-teal-900 py-1 px-2">
                     <span class="tag">${operacion.categoria}</span>
                 </div>
-                <div class="text-gray-600 m-auto">
+                <div class="text-gray-600">
                     ${operacion.fecha}
                 </div>
-                <div class="text-gray-600 font-bold m-auto">
-                    ${operacion.monto}
+                <div class="text-gray-600 font-bold ${
+                  operacion.tipo === "Ganancia"
+                    ? "text-green-600"
+                    : "text-red-600"
+                }">
+                    ${
+                      operacion.tipo === "Ganancia"
+                        ? "+$" + operacion.monto
+                        : "-$" + operacion.monto
+                    }
                 </div>
-                <div class="m-auto">
+                <div class="right">
                     <p class="is-fullwidth">
-                        <a href="#" class="bg-blue-500 text-white py-1 px-2 rounded" onclick="editarOperacion(${index})">Editar</a>
-                        <a href="#" class="bg-red-500 text-white py-1 px-2 mr-2 rounded" onclick="eliminarOperacion(${index})">Eliminar</a>
+                        <a href="#" class="text-sm text-blue-500 text-white py-1 px-2 rounded" onclick="editarOperacion(${index})">Editar</a>
+                        <a href="#" class="text-sm text-red-500 text-white py-1 px-2 mr-2 rounded" onclick="eliminarOperacion(${index})">Eliminar</a>
                     </p>
                 </div>
             </div>`;
