@@ -39,7 +39,7 @@ function mostrarOperaciones() {
     operacionesParseadas.forEach((operacion) => {
       const nuevoElemento = document.createElement("div");
       nuevoElemento.innerHTML = `
-            <div class="flex-col md:flex-row justify-between mt-4">
+            <div class="flex flex-col md:flex-row justify-between justify-between mt-4">
                 <div>
                     <div class="w-1/4 text-gray-600">
                     <h3 class="">${operacion.descripcion}</h3>
@@ -367,7 +367,7 @@ function mostrarOperaciones() {
 
       const nuevaOperacion = document.createElement("div");
       nuevaOperacion.innerHTML = `
-            <div class="flex-col md:flex justify-between items-center p-2 mt-4 gap-2">
+            <div class="flex flex-col md:flex-row justify-between justify-between mt-8">
                 <div class="w-1/4 text-gray-800 font-bold capitalize">
                     <h3 class="">${operacion.descripcion}</h3>
                 </div>
@@ -773,7 +773,7 @@ function mostrarOperacionesFiltradas(operaciones) {
     operaciones.forEach((operacion, index) => {
       const nuevaOperacion = document.createElement("div");
       nuevaOperacion.innerHTML = `
-            <div class="flex-col md:flex justify-between items-center p-2 mt-4 gap-2">
+            <div class="flex flex-col md:flex-row justify-between justify-between mt-8">
                 <div class="w-1/4 text-gray-800 font-bold capitalize">
                     <h3 class="">${operacion.descripcion}</h3>
                 </div>
