@@ -17,12 +17,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="shortcut icon" href="./src/assets/signo.png" type="image/x-icon">
     <link href="./src/output.css" rel="stylesheet" >
+    <link href="./src/input.css" rel="stylesheet" >
     <title>AhorrADAs</title>
 </head>
 
-<body class="bg-bgwhite">
+<body class="bg-gray-100">
     <header>
-        <nav class="bg-teal text-white md:flex py-5 px-5 md:items-center md:justify-between">
+        <nav class="bg-teal-400 text-white md:flex py-5 px-5 md:items-center md:justify-between block">
             <div class="flex justify-between items-center">
                 <h1 class="text-4xl  font-medium"><i class="fa-solid fa-wallet pr-4"></i>AhorrADAs
                 </h1>
@@ -30,17 +31,17 @@
                         class="fa-solid fa-bars"></i></span>
             </div>
             <ul id="menu"
-                class="md:flex md:items-center z-[1] md:z-auto md:static absolute bg-teal w-full left-0 md:w-auto md:py-0 py-4 md:pl-0 pl-4 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in-out">
+                class="md:flex md:items-center z-[1] md:z-auto md:static absolute bg-teal-400 w-full left-0 md:w-auto md:py-0 py-4 md:pl-0 pl-4 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in-out">
 
-                <li class="hover:bg-dark-teal text-center mx-auto cursor-pointer p-2 rounded-lg text-lg font-medium md:flex items-center duration-500"
+                <li class="hover:bg-teal-500 text-center mx-auto cursor-pointer p-2 rounded-lg text-lg font-medium md:flex items-center duration-500"
                     id="btn-balance">
                     <i class="fa-solid fa-arrow-trend-up pr-2"></i>Balance
                 </li>
-                <li class="hover:bg-dark-teal text-center mx-auto cursor-pointer p-2 rounded-lg text-lg font-medium md:flex items-center duration-500"
+                <li class="hover:bg-teal-500 text-center mx-auto cursor-pointer p-2 rounded-lg text-lg font-medium md:flex items-center duration-500"
                     id="btn-categorias">
                     <i class="fa-solid fa-tag pr-2"></i>Categorias
                 </li>
-                <li class="hover:bg-dark-teal text-center mx-auto cursor-pointer p-2 rounded-lg text-lg font-medium md:flex items-center duration-500"
+                <li class="hover:bg-teal-500 text-center mx-auto cursor-pointer p-2 rounded-lg text-lg font-medium md:flex items-center duration-500"
                     id="btn-reportes">
                     <i class="fa-solid fa-chart-pie pr-2"></i>Reportes
                 </li>
@@ -48,8 +49,8 @@
         </nav>
     </header>
     <!-- VISTA BALANCE -->
-    <div class="w-full m-auto py-14 lg:w-3/4 lg:flex items-start lg:justify-center gap-7" id="vista-balance">
-        <aside class="md:flex flex-col items-center lg:w-1/4">
+    <div class="m-auto py-14 lg:w-11/12 xl:w-3/4 flex flex-col lg:flex-row lg:justify-start gap-7" id="vista-balance">
+        <aside class="md:flex flex-col items-center w-full lg:w-1/4">
             <!-- BALANCE -->
             <article class="bg-white block p-6 w-11/12 lg:w-full m-auto rounded-md drop-shadow-lg">
                 <h2 class="text-black font-bold text-4xl mb-10">Balance</h2>
@@ -67,7 +68,7 @@
             <article class="bg-white md:block p-6 w-11/12 mt-7 lg:w-full m-auto rounded-md drop-shadow-lg">
                 <div class="flex place-content-between items-center mb-6">
                     <h2 class="text-black font-bold text-2xl">Filtros</h2>
-                    <button class="text-blue" id="btn-filtros">Ocultar Filtros</button>
+                    <button class="text-blue-500" id="btn-filtros">Ocultar Filtros</button>
                 </div>
                 <div id="vista-filtros">
                     <div class="flex flex-col">
@@ -110,7 +111,7 @@
                     <!-- Botones para aplicar y limpiar filtros -->
                     <div class="flex gap-2">
                         <button id="btn-aplicar-filtros"
-                            class="bg-teal hover:bg-dark-teal text-white py-2 px-4 text-lg rounded-md">
+                            class="bg-teal-400 hover:bg-teal-500 text-white py-2 px-4 text-lg rounded-md">
                             Aplicar filtros
                         </button>
                     </div>
@@ -118,11 +119,11 @@
 
             </article>
         </aside>
-        <main class="flex flex-col items-center lg:w-3/4">
-            <section class="sm:mt-7 lg:my-0 bg-white block p-6 w-11/12 lg:w-full mb-14 rounded-md drop-shadow-lg">
-                <div class="lg:flex lg:justify-between">
+        <main class="flex flex-col items-center sm:w-full lg:w-3/4">
+            <section class="mt-7 lg:my-0 bg-white block p-6 w-11/12 lg:w-full mb-14 rounded-md drop-shadow-lg">
+                <div class="flex flex-col justify-between md:flex-row">
                     <h2 class="text-black font-bold text-2xl mb-6">Operaciones</h2>
-                    <button class="bg-teal hover:bg-dark-teal text-white py-2 px-4 text-lg rounded-md lg:px-4 lg:py-0"
+                    <button class="bg-teal-400 hover:bg-teal-500 text-white py-4 px-4 text-lg rounded-md"
                         id="btn-nueva-operacion">+
                         Nueva operación</button>
                 </div>
@@ -184,11 +185,11 @@
                     class="border-gray-200 border p-2 mb-3" value="" >
             </div>
             <div class="flex justify-end mt-6 gap-2">
-                <button class="bg-bgwhite hover:bg-bgwhite text-black py-2 px-4 text-lg rounded-md lg:px-4 lg:py-2"
+                <button class="bg-gray-100 hover:bg-gray-200 text-black py-2 px-4 text-lg rounded-md lg:px-4 lg:py-2"
                     id="btn-cancelar-operacion">
                     Cancelar
                 </button>
-                <button class="bg-teal hover:bg-dark-teal text-white py-2 px-4 text-lg rounded-md lg:px-4 lg:py-0"
+                <button class="bg-teal-400 hover:bg-teal-500 text-white py-2 px-4 text-lg rounded-md lg:px-4 lg:py-0"
                     id="btn-agregar-operacion">
                     Agregar
                 </button>
@@ -238,11 +239,11 @@
                     class="border-gray-200 border p-2 mb-3">
             </div>
             <div class="flex justify-end mt-6 gap-2">
-                <button class="bg-bgwhite hover:bg-bgwhite text-black py-2 px-4 text-lg rounded-md lg:px-4 lg:py-2"
+                <button class="bg-gray-100 hover:bg-gray-200 text-black py-2 px-4 text-lg rounded-md lg:px-4 lg:py-2"
                     id="btn-cancelar-edicion">
                     Cancelar
                 </button>
-                <button class="bg-teal hover:bg-dark-teal text-white py-2 px-4 text-lg rounded-md lg:px-4 lg:py-0"
+                <button class="bg-teal-400 hover:bg-teal-500 text-white py-2 px-4 text-lg rounded-md lg:px-4 lg:py-0"
                     id="btn-editar-operacion">
                     Guardar cambios
                 </button>
@@ -259,11 +260,11 @@
             <div class="">
                 <label for="nombre-categoria-input" class="text-black text-lg font-bold mb-2 ">Nombre</label>
             </div>
-            <div class="flex">
+            <div class="flex flex-col md:flex-row">
                 <input type="text" name="nombre-categoria-input" class="border-gray-200 border p-2 my-3 mr-3 w-full"
                     id="nombre-categoria-input">
                 <button
-                    class="bg-teal hover:bg-dark-teal text-white py-0 px-3 my-3 mr-3 text-lg rounded-md lg:px-4 lg:py-2"
+                    class="bg-teal-400 hover:bg-teal-500 text-white my-3 mr-3 text-lg rounded-md px-4 py-2"
                     id="agregar-categoria-btn">Agregar</button>
             </div>
         </div>
