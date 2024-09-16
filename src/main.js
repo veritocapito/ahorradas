@@ -62,8 +62,8 @@ function mostrarOperaciones() {
                 </div>
                 <div class="m-auto">
                     <p class="is-fullwidth">
-                        <a href="#" class="text-sm text-blue-500 py-1 px-2 rounded">Editar</a>
-                        <a href="#" class="text-sm text-red-600 py-1 px-2 rounded">Eliminar</a>
+                        <a href="#" class="text-sm text-blue-500 py-1 px-2">Editar</a>
+                        <a href="#" class="text-sm text-red-600 py-1 px-2">Eliminar</a>
                     </p>
                 </div>
                 </div>
@@ -390,8 +390,8 @@ function mostrarOperaciones() {
                 </div>
                 <div class="right">
                     <p class="is-fullwidth">
-                        <a href="#" class="text-sm text-blue-500 py-1 px-2 rounded" onclick="editarOperacion(${index})">Editar</a>
-                        <a href="#" class="text-sm text-red-500 py-1 px-2 mr-2 rounded" onclick="eliminarOperacion(${index})">Eliminar</a>
+                        <a href="#" class="text-sm text-blue-500 py-1 px-2" onclick="editarOperacion(${index})">Editar</a>
+                        <a href="#" class="text-sm text-red-500 py-1 px-2 mr-2" onclick="eliminarOperacion(${index})">Eliminar</a>
                     </p>
                 </div>
             </div>`;
@@ -440,7 +440,6 @@ function mostrarCategorias() {
     botonEditar.classList.add(
       "text-blue-500",
       "text-sm",
-      "text-white",
       "py-1",
       "px-2",
       "mr-2",
@@ -453,7 +452,6 @@ function mostrarCategorias() {
     botonEliminar.classList.add(
       "text-red-500",
       "text-sm",
-      "text-white",
       "py-1",
       "px-2",
       "rounded"
